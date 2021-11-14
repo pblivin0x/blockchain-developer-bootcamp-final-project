@@ -2,7 +2,7 @@
 
 The [ConsenSys Blockchain Developer Bootcamp 2021](https://courses.consensys.net/courses/blockchain-developer-bootcamp-registration-2021) is ConsenSys Academy's flagship technical program. The course covers blockchain fundamentals, smart contracts (Solidity), developer tooling, and second order effects. The final project is to deploy a dApp with a set of smart contracts, tests, and a web interface. 
 
-This dApp will utilize [Set Protocol V2](https://docs.tokensets.com/) to create a smart contract managed [Social Trading](https://docs.tokensets.com/#social-trading) Set. The Manager will call the Trade Module to execute atomic trades and rebalance the Set for all token holders. The Streaming Fee Module accrues streaming fees for the Manager. 
+This dApp will utilize [Set Protocol V2](https://docs.tokensets.com/) to create a smart contract managed [Social Trading](https://docs.tokensets.com/#social-trading) Set. The Manager will call the Trade Module to execute atomic trades and change the underlying collateral in a Set for all token holders. The Streaming Fee Module accrues streaming fees for the Manager. 
 
 ![](architecture.jpg)
 
@@ -13,9 +13,13 @@ blockchain-developer-bootcamp-final-project
 
 ├── contracts
 │   ├── interfaces
+│   ├──   ├── IExchangeAdapter.sol
 │   ├──   ├── ISetToken.sol
+│   ├──   ├── IStreamingFeeModule.sol
+│   ├──   ├── ITradeModule.sol
 │   ├── lib
-│   ├──   ├── AddressArrayUtils.sol
+│   ├──   ├── MutualUpgrade.sol
+│   ├──   ├── PreciseUnitMath.sol
 │   ├── manager
 │   ├──   ├── Manager.sol
 │   ├── Migrations.sol

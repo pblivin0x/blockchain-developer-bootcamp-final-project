@@ -4,11 +4,12 @@ import { Address } from "@openzeppelin/contracts/utils/Address.sol";
 import { ISetToken } from "../interfaces/ISetToken.sol";
 import { IStreamingFeeModule } from "../interfaces/IStreamingFeeModule.sol";
 import { ITradeModule } from "../interfaces/ITradeModule.sol";
+import { MutualUpgrade } from "../lib/MutualUpgrade.sol";
 import { PreciseUnitMath } from "../lib/PreciseUnitMath.sol";
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 
-contract Manager {
+contract Manager is MutualUpgrade {
     using Address for address;
     using SafeMath for uint256;
     using PreciseUnitMath for uint256;
@@ -141,11 +142,12 @@ contract Manager {
     }
 
     /**
-     * OPERATOR ONLY: Update the SetToken manager address. 
+     * OPERATOR OR METHODOLOGIST ONLY: Update the SetToken manager address. Operator and Methodologist must each call
+     * this function to execute the update. 
      *
      * @param _newManager           New manager address
      */
-    function updateManager(address _newManager) external onlyOperator {
+    function updateManager(address _newManager) external mutualUpgrade(operator, methodologist) {
         require(_newManager != address(0), "Zero address not valid");
         setToken.setManager(_newManager);
     }
@@ -192,20 +194,22 @@ contract Manager {
     }
 
     /**
-     * OPERATOR ONLY: Update the fee recipient address.
+     * OPERATOR OR METHODOLOGIST ONLY: Update the fee recipient address. Operator and Methodologist must each call
+     * this function to execute the update.
      *
      * @param _newFeeRecipient           New fee recipient address
      */
-    function updateFeeRecipient(address _newFeeRecipient) external onlyOperator {
+    function updateFeeRecipient(address _newFeeRecipient) external mutualUpgrade(operator, methodologist) {
         feeModule.updateFeeRecipient(setToken, _newFeeRecipient);
     }
 
     /**
-     * OPERATOR ONLY: Update the fee split percentage.
+     * OPERATOR OR METHODOLOGIST ONLY: Update the fee split percentage. Operator and Methodologist must each call
+     * this function to execute the update.
      *
      * @param _newFeeSplit           New fee split percentage
      */
-    function updateFeeSplit(uint256 _newFeeSplit) external onlyOperator {
+    function updateFeeSplit(uint256 _newFeeSplit) external mutualUpgrade(operator, methodologist) {
         require(
             _newFeeSplit <= PreciseUnitMath.preciseUnit(),
             "Operator Fee Split must be less than 1e18"

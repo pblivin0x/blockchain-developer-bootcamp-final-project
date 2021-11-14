@@ -17,9 +17,66 @@ contract Manager {
 
     /* ============ Modifiers ============ */
 
+    /**
+     * Throws if the sender is not the SetToken operator
+     */
+    modifier onlyOperator() {
+        require(msg.sender == operator, "Must be operator");
+        _;
+    }
+
+    /**
+     * Throws if the sender is not the SetToken methodologist
+     */
+    modifier onlyMethodologist() {
+        require(msg.sender == methodologist, "Must be methodologist");
+        _;
+    }
+
     /* ============ State Variables ============ */
 
+    // Instance of SetToken
+    ISetToken public setToken;
+
+    // Address of TradeModule for executing DEX trades
+    ITradeModule public tradeModule;
+
+    // Address of StreamingFeeModule
+    IStreamingFeeModule public feeModule;
+
+    // Address of operator
+    address public operator;
+
+    // Address of methodologist
+    address public methodologist;
+
+    // Percent in 1e18 of streamingFees sent to operator
+    uint256 public operatorFeeSplit;
+
     /* ============ Constructor ============ */
+
+    constructor(
+        ISetToken _setToken,
+        ITradeModule _tradeModule,
+        IStreamingFeeModule _feeModule,
+        address _operator,
+        address _methodologist,
+        uint256 _operatorFeeSplit
+    )
+        public
+    {
+        require(
+            _operatorFeeSplit <= PreciseUnitMath.preciseUnit(),
+            "Operator Fee Split must be less than 1e18"
+        );
+
+        setToken = _setToken;
+        tradeModule = _tradeModule;
+        feeModule = _feeModule;
+        operator = _operator;
+        methodologist = _methodologist;
+        operatorFeeSplit = _operatorFeeSplit;
+    }
 
     /* ============ External Functions ============ */
 }

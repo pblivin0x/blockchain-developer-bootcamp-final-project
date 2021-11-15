@@ -45,11 +45,11 @@ blockchain-developer-bootcamp-final-project
 ├── truffle-config.js
 ```
 
-## Frontend Access
+## Frontend Interface
 
-The front-end will be hosted on Github Pages. 
+The frontend interface will be hosted on Github Pages. 
 
-## Ethereum Address
+## Ethereum Address for NFT Certificate
 
 pblivin.eth
 

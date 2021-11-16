@@ -6,13 +6,13 @@ The [ConsenSys Blockchain Developer Bootcamp 2021](https://courses.consensys.net
 
 This dApp will utilize [Set Protocol V2](https://docs.tokensets.com/) to create a smart contract managed [Social Trading](https://docs.tokensets.com/#social-trading) Set. The Manager will call the Trade Module to execute atomic trades and change the underlying collateral in a Set for all token holders. The Streaming Fee Module accrues streaming fees for the Manager. 
 
-![](socialTradingArchitecture.jpg)
+![](diagrams/socialTradingArchitecture.jpg)
 
 ## Algorithmic Trading Set
 
 In future work, this dApp is looking to add an Algorithmic Trading Set. In this system a Strategy Adapter instructs the Manager on how to call the Trade Module when triggered by a Keeper Bot. 
 
-![](algorithmicTradingArchitecture.jpg)
+![](diagrams/algorithmicTradingArchitecture.jpg)
 
 ## Directory Structure 
 

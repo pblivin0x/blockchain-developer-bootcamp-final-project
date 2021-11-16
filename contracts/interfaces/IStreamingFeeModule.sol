@@ -1,4 +1,6 @@
 // SPDX-License-Identifier: Apache License, Version 2.0
+// Code from Set Protocol https://github.com/SetProtocol/set-protocol-v2/blob/master/contracts/interfaces/IStreamingFeeModule.sol
+// No changes
 pragma solidity 0.6.10;
 pragma experimental "ABIEncoderV2";
 

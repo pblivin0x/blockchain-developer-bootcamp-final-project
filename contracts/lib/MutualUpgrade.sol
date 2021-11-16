@@ -1,4 +1,6 @@
 // SPDX-License-Identifier: Apache License, Version 2.0
+// Code from Set Protocol/Index Coop https://github.com/SetProtocol/index-coop-smart-contracts/blob/master/contracts/lib/MutualUpgrade.sol
+// No changes
 pragma solidity 0.6.10;
 
 /**

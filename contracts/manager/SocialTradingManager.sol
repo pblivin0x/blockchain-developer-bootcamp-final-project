@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: Apache License, Version 2.0
+// Inspired by ICManager contracts in https://github.com/SetProtocol/index-coop-smart-contracts/blob/master/contracts/manager/ICManager.sol
+// Major changes are including custom ITradeModule and trade function, excluding IIndexModule and rebalancing functionality
 pragma solidity 0.6.10;
 
 import { Address } from "@openzeppelin/contracts/utils/Address.sol";
@@ -9,7 +12,7 @@ import { PreciseUnitMath } from "../lib/PreciseUnitMath.sol";
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 
-contract Manager is MutualUpgrade {
+contract SocialTradingManager is MutualUpgrade {
     using Address for address;
     using SafeMath for uint256;
     using PreciseUnitMath for uint256;

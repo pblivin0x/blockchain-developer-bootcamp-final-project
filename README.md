@@ -29,7 +29,7 @@ blockchain-developer-bootcamp-final-project
 │   ├──   ├── MutualUpgrade.sol
 │   ├──   ├── PreciseUnitMath.sol
 │   ├── manager
-│   ├──   ├── Manager.sol
+│   ├──   ├── SocialTradingManager.sol
 │   ├── Migrations.sol
 
 ├── migrations

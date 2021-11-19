@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ConsenSys Final Project</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+<body>
+    <h1>Social Trading Set</h1>
+
+    <!-- Detect if MetaMask is installed -->
+    <div id="mm-detected"></div>
+
+    <!-- Allow user access to MetaMask -->
+    <button id="mm-connect">Connect to MetaMask</button>
+    
+    <div id="mm-current-account"></div>
+
+    <!-- Allow user send a transaction / update contract state -->
+
+    <h2>Operator</h2>
+
+    <h3>Trade</h3>
+    <input id="stm-trade-settoken-input-box" type="text" placeholder="Set Token Address">
+    <input id="stm-trade-exchange-input-box" type="text" placeholder="Exchange Name">
+    <input id="stm-trade-sendtoken-input-box" type="text" placeholder="Token to Send">
+    <input id="stm-trade-sendquantity-input-box" type="text" placeholder="Send Quantity">
+    <input id="stm-trade-receivetoken-input-box" type="text" placeholder="Token to Receive">
+    <input id="stm-trade-receivequantity-input-box" type="text" placeholder="Receive Quantity">
+    <button id="stm-trade-input-button">Submit Trade</button>
+
+    <h3>Change Operator</h3>
+    <input id="stm-changeoperator-input-box" type="text" placeholder="New Operator Address">
+    <button id="stm-changeoperator-input-button">Change Operator</button>
+
+    <h2>Methodologist</h2>
+
+    <h3>Change Streaming Fee</h3>
+    <input id="stm-streamingfee-input-box" type="number" placeholder="0">
+    <button id="stm-streamingfee-input-button">Update Streaming Fee</button>
+
+    <h3>Change Methodologist</h3>
+    <input id="stm-changemethodologist-input-box" type="text" placeholder="New Methodologist Address">
+    <button id="stm-changemethodologist-input-button">Change Methodologist</button>
+
+    <!-- Allow the user to read state from a contract -->
+
+    <script src="dapp.js"></script>
+</body>
+</html>

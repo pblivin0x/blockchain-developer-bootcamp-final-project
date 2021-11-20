@@ -32,6 +32,14 @@ blockchain-developer-bootcamp-final-project
 │   ├──   ├── SocialTradingManager.sol
 │   ├── Migrations.sol
 
+├── diagrams
+│   ├── algorithmicTradingArchitecture.jpg
+│   ├── socialTradingArchitecture.jpg
+
+
+├── frontend
+│   ├── dapp.js
+
 ├── migrations
 │   ├── 1_initial_migration.js
 
@@ -39,7 +47,7 @@ blockchain-developer-bootcamp-final-project
 
 ├── .gitignore
 ├── README.md
-├── architecture.jpg
+├── index.html
 ├── package-lock.json
 ├── package.json
 ├── truffle-config.js
@@ -47,7 +55,7 @@ blockchain-developer-bootcamp-final-project
 
 ## Frontend Interface
 
-The frontend interface will be hosted on Github Pages. 
+The frontend interface is hosted on Github Pages at [pblivin0x.github.io/blockchain-developer-bootcamp-final-project/](https://pblivin0x.github.io/blockchain-developer-bootcamp-final-project/)
 
 ## Ethereum Address for NFT Certificate
 

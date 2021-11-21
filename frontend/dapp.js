@@ -158,7 +158,7 @@ stmTradeSubmit.onclick = async () => {
         stmTradeReceiveQuantity
     )
 
-    var web3 = new web3(window.ethereum)
+    var web3 = new Web3(window.ethereum)
 
     const socialTradingManager = new web3.eth.Contract(socialTradingManagerABI, socialTradingManagerAddress)
     socialTradingManager.setProvider(window.ethereum)
@@ -177,7 +177,7 @@ stmOperatorSubmit.onclick = async () => {
     
     console.log(stmOperatorAddress);
 
-    var web3 = new web3(window.ethereum)
+    var web3 = new Web3(window.ethereum)
 
     const socialTradingManager = new web3.eth.Contract(socialTradingManagerABI, socialTradingManagerAddress);
     socialTradingManager.setProvider(window.ethereum)
@@ -191,7 +191,7 @@ stmStreamingSubmit.onclick = async () => {
     
     console.log(stmStreamingFee);
 
-    var web3 = new web3(window.ethereum)
+    var web3 = new Web3(window.ethereum)
 
     const socialTradingManager = new web3.eth.Contract(socialTradingManagerABI, socialTradingManagerAddress);
     socialTradingManager.setProvider(window.ethereum)
@@ -205,7 +205,7 @@ stmMethodologistSubmit.onclick = async () => {
     
     console.log(stmMethodologistAddress);
 
-    var web3 = new web3(window.ethereum)
+    var web3 = new Web3(window.ethereum)
 
     const socialTradingManager = new web3.eth.Contract(socialTradingManagerABI, socialTradingManagerAddress);
     socialTradingManager.setProvider(window.ethereum)
@@ -232,7 +232,7 @@ createSetSubmit.onclick = async () => {
   const streamingFeeModuleAddress = '0xE038E59DEEC8657d105B6a3Fb5040b3a6189Dd51'
   const tradeModuleAddress = '0xC93c8CDE0eDf4963ea1eea156099B285A945210a'
 
-  // var web3 = new web3(window.ethereum)
+  var web3 = new Web3(window.ethereum)
 
   const setTokenCreator = new web3.eth.Contract(setTokenCreatorABI, setTokenCreatorAddress);
   setTokenCreator.setProvider(window.ethereum)

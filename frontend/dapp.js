@@ -1,5 +1,3 @@
-
-
 // Set Token Creator Contract
 const setTokenCreatorAddress = '0xB24F7367ee8efcB5EAbe4491B42fA222EC68d411'
 const setTokenCreatorABI = [
@@ -320,6 +318,246 @@ const basicIssuanceModuleABI = [
   }
 ]
 
+// Streaming Fee Module Contract
+const streamingFeeModuleAddress = '0xE038E59DEEC8657d105B6a3Fb5040b3a6189Dd51'
+const streamingFeeModuleABI = [
+  {
+    "inputs": [
+      {
+        "internalType": "contract IController",
+        "name": "_controller",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_setToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_managerFee",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_protocolFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "FeeActualized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_setToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_newFeeRecipient",
+        "type": "address"
+      }
+    ],
+    "name": "FeeRecipientUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_setToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_newStreamingFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "StreamingFeeUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract ISetToken",
+        "name": "_setToken",
+        "type": "address"
+      }
+    ],
+    "name": "accrueFee",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "controller",
+    "outputs": [
+      {
+        "internalType": "contract IController",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract ISetToken",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "feeStates",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "feeRecipient",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxStreamingFeePercentage",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "streamingFeePercentage",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lastStreamingFeeTimestamp",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract ISetToken",
+        "name": "_setToken",
+        "type": "address"
+      }
+    ],
+    "name": "getFee",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract ISetToken",
+        "name": "_setToken",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "feeRecipient",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "maxStreamingFeePercentage",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "streamingFeePercentage",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "lastStreamingFeeTimestamp",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct StreamingFeeModule.FeeState",
+        "name": "_settings",
+        "type": "tuple"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "removeModule",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract ISetToken",
+        "name": "_setToken",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_newFeeRecipient",
+        "type": "address"
+      }
+    ],
+    "name": "updateFeeRecipient",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract ISetToken",
+        "name": "_setToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_newFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateStreamingFee",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
 
 // Social Trading Manager Contract
 // const socialTradingManagerAddress = ''
@@ -860,5 +1098,6 @@ createSetSubmit.onclick = async () => {
                                                         setName,
                                                         setSymbol).send({from: ethereum.selectedAddress})
   
-  createdSetAddress.innerHTML = 'New Set Token Address: ' + newAddress
+  console.log(newAddress);
+  createdSetAddress.innerHTML = 'New Set Token Address: ' + newAddress.events.SetTokenCreated.address
 }

@@ -94,9 +94,20 @@
 
         <h3>Get Required Components for Issue</h3>
 
+        <input id="investor-require-token-input-box" type="text" placeholder="Set Token Address">
+        <input id="investor-require-quantity-input-box" type="text" placeholder="Quantity">
+
         <h3>Issue</h3>
+        <input id="investor-issue-token-input-box" type="text" placeholder="Set Token Address">
+        <input id="investor-issue-quantity-input-box" type="number" placeholder="Quantity">
+        <input id="investor-issue-to-input-box" type="text" placeholder="User Address">
+        <button id="investor-issue-button">Issue Set Tokens</button>
 
         <h3>Redeem</h3>
+        <input id="investor-redeem-token-input-box" type="text" placeholder="Set Token Address">
+        <input id="investor-redeem-quantity-input-box" type="number" placeholder="Quantity">
+        <input id="investor-redeem-to-input-box" type="text" placeholder="User Address">
+        <button id="investor-redeem-button">Redeem Set Tokens</button>
     </div>
 
     <div id="Social Trader" class="tabcontent">
@@ -109,9 +120,25 @@
         <input id="create-default-set-name-input-box" type="text" placeholder="Set Name">
         <input id="create-default-set-symbol-input-box" type="text" placeholder="Set Symbol">
         <button id="create-default-set-button">Create Set</button>
-        <!-- <div id="created-set-address"></div> -->
+        <br>
+        <div id="created-set-address"></div>
 
         <h3>Initialize Modules</h3>
+
+        <h4>Basic Issuance Module</h4>
+
+        <input id="initialize-bi-module-input-box" type="text" placeholder="Set Token Address">
+        <button id="initialize-bi-module-button">Initialize Module</button>
+
+        <h4>Streaming Fee Module</h4>
+
+        <input id="initialize-sf-module-input-box" type="text" placeholder="Set Token Address">
+        <button id="initialize-sf-module-button">Initialize Module</button>
+
+        <h4>Trade Module</h4>
+
+        <input id="initialize-t-module-input-box" type="text" placeholder="Set Token Address">
+        <button id="initialize-t-module-button">Initialize Module</button>
     </div>
 
     <script>

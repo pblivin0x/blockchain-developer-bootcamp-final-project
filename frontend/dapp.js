@@ -1144,7 +1144,7 @@ requireSubmit.onclick = async () => {
 
   const basicIssuanceModule = new web3.eth.Contract(basicIssuanceModuleABI, basicIssuanceModuleAddress);
   basicIssuanceModule.setProvider(window.ethereum)
-  var componentUnits = await basicIssuanceModule.methods.getRequiredComponentUnitsForIssue(setTokenAddress, quantity).send({from: ethereum.selectedAddress})
+  var componentUnits = await basicIssuanceModule.methods.getRequiredComponentUnitsForIssue(setTokenAddress, quantity).call()
 
   console.log(componentUnits);
 }
@@ -1306,6 +1306,20 @@ initBISubmit.onclick = async () => {
   const basicIssuanceModule = new web3.eth.Contract(basicIssuanceModuleABI, basicIssuanceModuleAddress);
   basicIssuanceModule.setProvider(window.ethereum)
   await basicIssuanceModule.methods.initialize(setTokenAddress, '0x0000000000000000000000000000000000000000').send({from: ethereum.selectedAddress})
+}
+
+// Social Trader: Initialize Streaming Fee Module
+const initSFSubmit = document.getElementById('initialize-sf-module-button');
+initSFSubmit.onclick = async () => {
+  const setTokenAddress = document.getElementById('initialize-sf-module-input-box').value;
+  
+  console.log(setTokenAddress);
+
+  var web3 = new Web3(window.ethereum)
+
+  const streamingFeeModule = new web3.eth.Contract(streamingFeeModuleABI, streamingFeeModuleAddress);
+  streamingFeeModule.setProvider(window.ethereum)
+  await streamingFeeModule.methods.initialize(setTokenAddress).send({from: ethereum.selectedAddress})
 }
 
 // Social Trader: Initialize Trade Module

@@ -128,7 +128,7 @@ window.addEventListener('load', function() {
     }
   })
 
-  var web3 = new Web3(window.ethereum)
+var web3 = new Web3(window.ethereum)
 
 // Allow user access to MetaMask
 const mmEnable = document.getElementById('mm-connect');
@@ -234,7 +234,7 @@ createSetSubmit.onclick = async () => {
 
   var web3 = new web3(window.ethereum)
 
-  const setTokenCreator = new web3.eth.contract(setTokenCreatorABI, setTokenCreatorAddress);
+  const setTokenCreator = new web3.eth.Contract(setTokenCreatorABI, setTokenCreatorAddress);
   setTokenCreator.setProvider(window.ethereum)
   await setTokenCreator.methods.create([wethAddress, daiAddress],
                                        [setWETH, setDAI],

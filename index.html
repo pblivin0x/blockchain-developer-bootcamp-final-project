@@ -64,18 +64,26 @@
         <h2>Investor</h2>
 
         <h3>Get Required Components for Issue</h3>
-
+        <p>Get the addresses and units required to mint a given quantity of a Set Token</p>
         <input id="investor-require-token-input-box" type="text" placeholder="Set Token Address">
         <input id="investor-require-quantity-input-box" type="text" placeholder="Quantity">
         <button id="investor-require-button">Get Required Components</button>
 
         <h3>Issue</h3>
+        <p>
+        Deposits components into the Set Token and mints the Set Token to the User Address. 
+        Components must be approved to the BasicIssuanceModule contract ahead of the issuance call. 
+        </p>
         <input id="investor-issue-token-input-box" type="text" placeholder="Set Token Address">
         <input id="investor-issue-quantity-input-box" type="number" placeholder="Quantity">
         <input id="investor-issue-to-input-box" type="text" placeholder="User Address">
         <button id="investor-issue-button">Issue Set Tokens</button>
 
         <h3>Redeem</h3>
+        <p>
+          Redeems the Set Token's positions and sends the components of the given quantity 
+          to the User Address. 
+        </p>
         <input id="investor-redeem-token-input-box" type="text" placeholder="Set Token Address">
         <input id="investor-redeem-quantity-input-box" type="number" placeholder="Quantity">
         <input id="investor-redeem-to-input-box" type="text" placeholder="User Address">
@@ -86,6 +94,9 @@
         <h2>Operator</h2>
 
         <h3>Trade</h3>
+        <p>
+          Executes a trade on a supported DEX. 
+        </p>
         <input id="stm-trade-settoken-input-box" type="text" placeholder="Set Token Address">
         <input id="stm-trade-exchange-input-box" type="text" placeholder="Exchange Name">
         <input id="stm-trade-sendtoken-input-box" type="text" placeholder="Token to Send">
@@ -95,6 +106,9 @@
         <button id="stm-trade-input-button">Submit Trade</button>
 
         <h3>Change Operator</h3>
+        <p>
+          Updates Operator who manages Set Protocol module calls
+        </p>
         <input id="stm-changeoperator-input-box" type="text" placeholder="New Operator Address">
         <button id="stm-changeoperator-input-button">Change Operator</button>
     </div>
@@ -103,10 +117,16 @@
         <h2>Methodologist</h2>
         
         <h3>Change Streaming Fee</h3>
+        <p>
+          Set new streaming fee for the Streaming Fee Module. 
+        </p>
         <input id="stm-streamingfee-input-box" type="number" placeholder="0">
         <button id="stm-streamingfee-input-button">Update Streaming Fee</button>
 
         <h3>Change Methodologist</h3>
+        <p>
+          Updates Methodologist for the Set Token.  
+        </p>
         <input id="stm-changemethodologist-input-box" type="text" placeholder="New Methodologist Address">
         <button id="stm-changemethodologist-input-button">Change Methodologist</button>
     </div>
@@ -114,7 +134,8 @@
     <div id="Social Trader" class="tabcontent">
         <h2>Social Trader</h2>
         
-        <h3>Create Set</h3>
+        <h3>Create Set Token</h3>
+        <p>Create a new Set Token with WETH and DAI components and Basic Issuance, Streaming Fee, and Trade modules. </p>
         <input id="create-default-set-manager-input-box" type="text" placeholder="Manager Address">
         <input id="create-default-set-weth-input-box" type="number" placeholder="WETH Units">
         <input id="create-default-set-dai-input-box" type="number" placeholder="DAI Units">
@@ -127,17 +148,20 @@
         <h3>Initialize Modules</h3>
 
         <h4>Basic Issuance Module</h4>
-
+        <p>Initialize the Basic Issuance Module to the deployed Set Token</p>
         <input id="initialize-bi-module-input-box" type="text" placeholder="Set Token Address">
         <button id="initialize-bi-module-button">Initialize Module</button>
 
         <h4>Streaming Fee Module</h4>
-
-        <input id="initialize-sf-module-input-box" type="text" placeholder="Set Token Address">
+        <p>Initialize the Streaming Fee Module to the deployed Set Token</p>
+        <input id="initialize-sf-token-input-box" type="text" placeholder="Set Token Address">
+        <input id="initialize-sf-feeRecepient-input-box" type="text" placeholder="Fee Recipient">
+        <input id="initialize-sf-maxFee-input-box" type="text" placeholder="Max Streaming Fee Percentage">
+        <input id="initialize-sf-fee-input-box" type="text" placeholder="Streaming Fee Percentage">
         <button id="initialize-sf-module-button">Initialize Module</button>
 
         <h4>Trade Module</h4>
-
+        <p>Initialize the Trade Module to the deployed Set Token</p>
         <input id="initialize-t-module-input-box" type="text" placeholder="Set Token Address">
         <button id="initialize-t-module-button">Initialize Module</button>
     </div>

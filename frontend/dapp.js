@@ -559,6 +559,147 @@ const streamingFeeModuleABI = [
   }
 ]
 
+// Trade Module Contract
+const tradeModuleAddress = '0xC93c8CDE0eDf4963ea1eea156099B285A945210a'
+const tradeModuleABI = [
+  {
+    "inputs": [
+      {
+        "internalType": "contract IController",
+        "name": "_controller",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "contract ISetToken",
+        "name": "_setToken",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_sendToken",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_receiveToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "contract IExchangeAdapter",
+        "name": "_exchangeAdapter",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_totalSendAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_totalReceiveAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_protocolFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "ComponentExchanged",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "controller",
+    "outputs": [
+      {
+        "internalType": "contract IController",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract ISetToken",
+        "name": "_setToken",
+        "type": "address"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "removeModule",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract ISetToken",
+        "name": "_setToken",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_exchangeName",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "_sendToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_sendQuantity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_receiveToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_minReceiveQuantity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_data",
+        "type": "bytes"
+      }
+    ],
+    "name": "trade",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
+
 // Social Trading Manager Contract
 // const socialTradingManagerAddress = ''
 const socialTradingManagerABI = [
@@ -966,18 +1107,16 @@ window.addEventListener('load', function() {
       console.log('window.ethereum is enabled')
       if (window.ethereum.isMetaMask === true) {
         console.log('MetaMask is active')
-        let mmDetected = document.getElementById('mm-detected')
-        mmDetected.innerHTML += 'MetaMask Is Available!'
         var web3 = new Web3(window.ethereum)
       } else {
         console.log('MetaMask is not available')
         let mmDetected = document.getElementById('mm-detected')
-        mmDetected.innerHTML += 'MetaMask Not Available!'
+        mmDetected.innerHTML += '<p>Warning: MetaMask Not Available!<p>'
       }
     } else {
       console.log('window.ethereum is not found')
       let mmDetected = document.getElementById('mm-detected')
-      mmDetected.innerHTML += '<p>MetaMask Not Available!<p>'
+      mmDetected.innerHTML += '<p>Warning: MetaMask Not Available!<p>'
     }
   })
 
@@ -992,6 +1131,59 @@ mmEnable.onclick = async () => {
 }
 
 // Allow user send a transaction / update contract state
+
+// Investor: Get Required Components for Issue
+const requireSubmit = document.getElementById('investor-require-button');
+requireSubmit.onclick = async () => {
+  const setTokenAddress = document.getElementById('investor-require-token-input-box').value;
+  const quantity = document.getElementById('investor-require-quantity-input-box').value;
+  
+  console.log(setTokenAddress, quantity);
+
+  var web3 = new Web3(window.ethereum)
+
+  const basicIssuanceModule = new web3.eth.Contract(basicIssuanceModuleABI, basicIssuanceModuleAddress);
+  basicIssuanceModule.setProvider(window.ethereum)
+  var componentUnits = await basicIssuanceModule.methods.getRequiredComponentUnitsForIssue(setTokenAddress, quantity).send({from: ethereum.selectedAddress})
+
+  console.log(componentUnits);
+}
+
+// Investor: Issue
+const issueSubmit = document.getElementById('investor-issue-button');
+issueSubmit.onclick = async () => {
+  const setTokenAddress = document.getElementById('investor-issue-token-input-box').value;
+  const quantity = document.getElementById('investor-issue-quantity-input-box').value;
+  const userAddress = document.getElementById('investor-issue-to-input-box').value;
+
+  console.log(setTokenAddress, quantity, userAddress);
+
+  var web3 = new Web3(window.ethereum)
+
+  const basicIssuanceModule = new web3.eth.Contract(basicIssuanceModuleABI, basicIssuanceModuleAddress);
+  basicIssuanceModule.setProvider(window.ethereum)
+  var issueResult = await basicIssuanceModule.methods.issue(setTokenAddress, quantity, userAddress).send({from: ethereum.selectedAddress})
+
+  console.log(issueResult);
+}
+
+// Investor: Redeem
+const redeemSubmit = document.getElementById('investor-redeem-button');
+redeemSubmit.onclick = async () => {
+  const setTokenAddress = document.getElementById('investor-redeem-token-input-box').value;
+  const quantity = document.getElementById('investor-redeem-quantity-input-box').value;
+  const userAddress = document.getElementById('investor-redeem-to-input-box').value;
+
+  console.log(setTokenAddress, quantity, userAddress);
+
+  var web3 = new Web3(window.ethereum)
+
+  const basicIssuanceModule = new web3.eth.Contract(basicIssuanceModuleABI, basicIssuanceModuleAddress);
+  basicIssuanceModule.setProvider(window.ethereum)
+  var redeemResult = await basicIssuanceModule.methods.redeem(setTokenAddress, quantity, userAddress).send({from: ethereum.selectedAddress})
+
+  console.log(redeemResult);
+}
 
 // Operator: Submit Trade
 const stmTradeSubmit = document.getElementById('stm-trade-input-button');
@@ -1065,7 +1257,7 @@ stmMethodologistSubmit.onclick = async () => {
     await socialTradingManager.methods.updateMethodologist(stmMethodologistAddress).send({from: ethereum.selectedAddress})
 }
 
-// Preliminary: Create Set
+// Social Trader: Create Set
 const createSetSubmit = document.getElementById('create-default-set-button');
 createSetSubmit.onclick = async () => {
   const setManager = document.getElementById('create-default-set-manager-input-box').value;
@@ -1100,4 +1292,32 @@ createSetSubmit.onclick = async () => {
   
   console.log(newAddress);
   createdSetAddress.innerHTML = 'New Set Token Address: ' + newAddress.events.SetTokenCreated.address
+}
+
+// Social Trader: Initialize Basic Issuance Module
+const initBISubmit = document.getElementById('initialize-bi-module-button');
+initBISubmit.onclick = async () => {
+  const setTokenAddress = document.getElementById('initialize-bi-module-input-box').value;
+  
+  console.log(setTokenAddress);
+
+  var web3 = new Web3(window.ethereum)
+
+  const basicIssuanceModule = new web3.eth.Contract(basicIssuanceModuleABI, basicIssuanceModuleAddress);
+  basicIssuanceModule.setProvider(window.ethereum)
+  await basicIssuanceModule.methods.initialize(setTokenAddress, '0x0000000000000000000000000000000000000000').send({from: ethereum.selectedAddress})
+}
+
+// Social Trader: Initialize Trade Module
+const initTSubmit = document.getElementById('initialize-t-module-button');
+initTSubmit.onclick = async () => {
+  const setTokenAddress = document.getElementById('initialize-t-module-input-box').value;
+  
+  console.log(setTokenAddress);
+
+  var web3 = new Web3(window.ethereum)
+
+  const tradeModule = new web3.eth.Contract(tradeModuleABI, tradeModuleAddress);
+  tradeModule.setProvider(window.ethereum)
+  await tradeModule.methods.initialize(setTokenAddress).send({from: ethereum.selectedAddress})
 }

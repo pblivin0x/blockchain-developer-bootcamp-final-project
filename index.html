@@ -52,13 +52,35 @@
     <br>
 
     <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'Operator')" id="defaultOpen">Operator</button>
+        <button class="tablinks" onclick="openTab(event, 'Investor')" id="defaultOpen">Investor</button>
+        <button class="tablinks" onclick="openTab(event, 'Operator')">Operator</button>
         <button class="tablinks" onclick="openTab(event, 'Methodologist')">Methodologist</button>
-        <button class="tablinks" onclick="openTab(event, 'Investor')">Investor</button>
         <button class="tablinks" onclick="openTab(event, 'Social Trader')">Social Trader</button>
     </div>
 
     <!-- Allow user send a transaction / update contract state -->
+
+    <div id="Investor" class="tabcontent">
+        <h2>Investor</h2>
+
+        <h3>Get Required Components for Issue</h3>
+
+        <input id="investor-require-token-input-box" type="text" placeholder="Set Token Address">
+        <input id="investor-require-quantity-input-box" type="text" placeholder="Quantity">
+        <button id="investor-require-button">Get Required Components</button>
+
+        <h3>Issue</h3>
+        <input id="investor-issue-token-input-box" type="text" placeholder="Set Token Address">
+        <input id="investor-issue-quantity-input-box" type="number" placeholder="Quantity">
+        <input id="investor-issue-to-input-box" type="text" placeholder="User Address">
+        <button id="investor-issue-button">Issue Set Tokens</button>
+
+        <h3>Redeem</h3>
+        <input id="investor-redeem-token-input-box" type="text" placeholder="Set Token Address">
+        <input id="investor-redeem-quantity-input-box" type="number" placeholder="Quantity">
+        <input id="investor-redeem-to-input-box" type="text" placeholder="User Address">
+        <button id="investor-redeem-button">Redeem Set Tokens</button>
+    </div>
 
     <div id="Operator" class="tabcontent">
         <h2>Operator</h2>
@@ -87,27 +109,6 @@
         <h3>Change Methodologist</h3>
         <input id="stm-changemethodologist-input-box" type="text" placeholder="New Methodologist Address">
         <button id="stm-changemethodologist-input-button">Change Methodologist</button>
-    </div>
-
-    <div id="Investor" class="tabcontent">
-        <h2>Investor</h2>
-
-        <h3>Get Required Components for Issue</h3>
-
-        <input id="investor-require-token-input-box" type="text" placeholder="Set Token Address">
-        <input id="investor-require-quantity-input-box" type="text" placeholder="Quantity">
-
-        <h3>Issue</h3>
-        <input id="investor-issue-token-input-box" type="text" placeholder="Set Token Address">
-        <input id="investor-issue-quantity-input-box" type="number" placeholder="Quantity">
-        <input id="investor-issue-to-input-box" type="text" placeholder="User Address">
-        <button id="investor-issue-button">Issue Set Tokens</button>
-
-        <h3>Redeem</h3>
-        <input id="investor-redeem-token-input-box" type="text" placeholder="Set Token Address">
-        <input id="investor-redeem-quantity-input-box" type="number" placeholder="Quantity">
-        <input id="investor-redeem-to-input-box" type="text" placeholder="User Address">
-        <button id="investor-redeem-button">Redeem Set Tokens</button>
     </div>
 
     <div id="Social Trader" class="tabcontent">

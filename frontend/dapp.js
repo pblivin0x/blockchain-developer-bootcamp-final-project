@@ -1099,7 +1099,6 @@ const socialTradingManagerABI = [
   }
 ]
 
-
 // Detect if MetaMask is installed 
 window.addEventListener('load', function() {
   
@@ -1311,15 +1310,23 @@ initBISubmit.onclick = async () => {
 // Social Trader: Initialize Streaming Fee Module
 const initSFSubmit = document.getElementById('initialize-sf-module-button');
 initSFSubmit.onclick = async () => {
-  const setTokenAddress = document.getElementById('initialize-sf-module-input-box').value;
-  
-  console.log(setTokenAddress);
+  const setTokenAddress = document.getElementById('initialize-sf-token-input-box').value;
+  const _feeRecepient = document.getElementById('initialize-sf-feeRecepient-input-box').value;
+  const _maxStreamingFeePercentage = document.getElementById('initialize-sf-maxFee-input-box').value;
+  const _streamingFeePercentage = document.getElementById('initialize-sf-fee-input-box').value;
 
+  console.log(setTokenAddress, _feeRecepient, _maxStreamingFeePercentage, _streamingFeePercentage);
+
+  const feeState = {feeRecepient: _feeRecepient, 
+                    maxStreamingFeePercentage: _maxStreamingFeePercentage,
+                    streamingFeePercentage: _streamingFeePercentage,
+                    lastStreamingFeeTimestamp: 0};
+  
   var web3 = new Web3(window.ethereum)
 
   const streamingFeeModule = new web3.eth.Contract(streamingFeeModuleABI, streamingFeeModuleAddress);
   streamingFeeModule.setProvider(window.ethereum)
-  await streamingFeeModule.methods.initialize(setTokenAddress).send({from: ethereum.selectedAddress})
+  await streamingFeeModule.methods.initialize(setTokenAddress, feeState).send({from: ethereum.selectedAddress})
 }
 
 // Social Trader: Initialize Trade Module

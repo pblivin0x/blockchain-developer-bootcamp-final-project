@@ -1310,10 +1310,10 @@ initBISubmit.onclick = async () => {
 // Social Trader: Initialize Streaming Fee Module
 const initSFSubmit = document.getElementById('initialize-sf-module-button');
 initSFSubmit.onclick = async () => {
-  const setTokenAddress = document.getElementById('initialize-sf-token-input-box').value;
+  const setTokenAddress = document.getElementById('initialize-sf-setToken-input-box').value;
   const _feeRecepient = document.getElementById('initialize-sf-feeRecepient-input-box').value;
   const _maxStreamingFeePercentage = document.getElementById('initialize-sf-maxFee-input-box').value;
-  const _streamingFeePercentage = document.getElementById('initialize-sf-fee-input-box').value;
+  const _streamingFeePercentage = document.getElementById('initialize-sf-feePercentage-input-box').value;
 
   console.log(setTokenAddress, _feeRecepient, _maxStreamingFeePercentage, _streamingFeePercentage);
 

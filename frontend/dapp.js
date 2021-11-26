@@ -1291,7 +1291,7 @@ createSetSubmit.onclick = async () => {
                                                         setSymbol).send({from: ethereum.selectedAddress})
   
   console.log(newAddress);
-  createdSetAddress.innerHTML = 'New Set Token Address: ' + newAddress.events.SetTokenCreated.address
+  createdSetAddress.innerHTML = 'New Set Token Address: ' + newAddress.events.SetTokenCreated.returnValues._setToken
 }
 
 // Social Trader: Initialize Basic Issuance Module

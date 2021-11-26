@@ -1,5 +1,5 @@
 // Set Token Creator Contract
-const setTokenCreatorAddress = '0xB24F7367ee8efcB5EAbe4491B42fA222EC68d411'
+const setTokenCreatorAddress = '0x324152c8Ada7AbCc083ACB6e2090fa6266e2AbeD'
 const setTokenCreatorABI = [
   {
     "inputs": [

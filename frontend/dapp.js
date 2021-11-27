@@ -1311,16 +1311,13 @@ initBISubmit.onclick = async () => {
 const initSFSubmit = document.getElementById('initialize-sf-module-button');
 initSFSubmit.onclick = async () => {
   const setTokenAddress = document.getElementById('initialize-sf-setToken-input-box').value;
-  const _feeRecepient = document.getElementById('initialize-sf-feeRecepient-input-box').value;
-  const _maxStreamingFeePercentage = document.getElementById('initialize-sf-maxFee-input-box').value;
-  const _streamingFeePercentage = document.getElementById('initialize-sf-feePercentage-input-box').value;
+  const feeRecepient = document.getElementById('initialize-sf-feeRecepient-input-box').value;
+  const maxStreamingFeePercentage = document.getElementById('initialize-sf-maxFee-input-box').value;
+  const streamingFeePercentage = document.getElementById('initialize-sf-feePercentage-input-box').value;
 
-  console.log(setTokenAddress, _feeRecepient, _maxStreamingFeePercentage, _streamingFeePercentage);
+  console.log(setTokenAddress, feeRecepient, maxStreamingFeePercentage, streamingFeePercentage);
 
-  const feeState = {feeRecepient: _feeRecepient, 
-                    maxStreamingFeePercentage: _maxStreamingFeePercentage,
-                    streamingFeePercentage: _streamingFeePercentage,
-                    lastStreamingFeeTimestamp: 0};
+  const feeState = [feeRecepient, maxStreamingFeePercentage, streamingFeePercentage, 0];
   
   var web3 = new Web3(window.ethereum)
 

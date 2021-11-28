@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: Apache License, Version 2.0
 // Inspired by ICManager contracts in https://github.com/SetProtocol/index-coop-smart-contracts/blob/master/contracts/manager/ICManager.sol
-// Major changes are including custom ITradeModule and trade function, excluding IIndexModule and rebalancing functionality
+// Major changes 
+// Include custom ITradeModule and trade functionality
+// Exclude IIndexModule and rebalancing functionality 
+// NatSpec format documentation
 pragma solidity 0.6.10;
 
 import { Address } from "@openzeppelin/contracts/utils/Address.sol";
@@ -12,6 +15,9 @@ import { PreciseUnitMath } from "../lib/PreciseUnitMath.sol";
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 
+/// @title Social trading smart contract manager for SetToken
+/// @author pblivin0x
+/// @notice Manage a SetToken and allow a Social Trader to trade for investors
 contract SocialTradingManager is MutualUpgrade {
     using Address for address;
     using SafeMath for uint256;
@@ -19,17 +25,23 @@ contract SocialTradingManager is MutualUpgrade {
 
     /* ============ Events ============ */
 
+    /// @title Event when fees are accrued 
+    /// @notice Specifies total fees, and operator/methodologist split 
     event FeesAccrued(
         uint256 _totalFees,
         uint256 _operatorTake,
         uint256 _methodologistTake
     );
 
+    /// @title Event when methodologist is changed
+    /// @notice Specifies the old methodologist and the new methodologist
     event MethodologistChanged(
         address _oldMethodologist,
         address _newMethodologist
     );
 
+    /// @title Event when operator is changed
+    /// @notice Specifies the old operator and the new operator
     event OperatorChanged(
         address _oldOperator,
         address _newOperator
@@ -55,22 +67,25 @@ contract SocialTradingManager is MutualUpgrade {
 
     /* ============ State Variables ============ */
 
-    // Instance of SetToken
+    /// @title Instance of SetToken
     ISetToken public setToken;
 
-    // Address of TradeModule for executing DEX trades
+    /// @title Address of TradeModule for executing DEX trades
     ITradeModule public tradeModule;
 
-    // Address of StreamingFeeModule
+    /// @title Address of StreamingFeeModule
     IStreamingFeeModule public feeModule;
 
-    // Address of operator which typically executes manager only functions on Set Protocol modules
+    /// @title Address of operator 
+    /// @notice operator typically executes manager only functions on Set Protocol modules
     address public operator;
 
-    // Address of methodologist which serves as providing methodology for the index
+    /// @title Address of methodologist
+    /// @notice methodologist handles streaming fee 
     address public methodologist;
 
-    // Percent in 1e18 of streamingFees sent to operator
+    /// @title Operator and Methodologist streaming fee split
+    /// @notice Percent in 1e18 of streamingFees sent to operator
     uint256 public operatorFeeSplit;
 
     /* ============ Constructor ============ */
@@ -101,8 +116,8 @@ contract SocialTradingManager is MutualUpgrade {
     /* ============ External Functions ============ */
 
     /**
-     * OPERATOR ONLY: 
-     * Executes a trade on a supported DEX. Only callable by the SetToken's manager.
+     * @title Trade underlying collateral
+     * @notice Executes a trade on a supported DEX. Only callable by the operator. 
      * @dev Although the SetToken units are passed in for the send and receive quantities, the total quantity
      * sent and received is the quantity of SetToken units multiplied by the SetToken totalSupply.
      *
@@ -126,9 +141,8 @@ contract SocialTradingManager is MutualUpgrade {
         tradeModule.trade(_setToken, _exchangeName, _sendToken, _sendQuantity, _receiveToken, _minReceiveQuantity, _data);
     }
 
-    /**
-     * Accrue fees from streaming fee module and transfer tokens to operator / methodologist addresses based on fee split
-     */
+    /// @title Accrue fee and distribute
+    /// @notice Transfers tokens to operator and methodologist based on streaming fee split
     function accrueFeeAndDistribute() public {
         feeModule.accrueFee(setToken);
 
@@ -145,9 +159,8 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * OPERATOR OR METHODOLOGIST ONLY: Update the SetToken manager address. Operator and Methodologist must each call
-     * this function to execute the update. 
-     *
+     * @title Update the SetToken manager address. 
+     * @notice Operator and Methodologist must each call this function to execute the update. 
      * @param _newManager           New manager address
      */
     function updateManager(address _newManager) external mutualUpgrade(operator, methodologist) {
@@ -156,8 +169,8 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * OPERATOR ONLY: Add a new module to the SetToken.
-     *
+     * @title Add a new module to the SetToken.
+     * @notice Operator only
      * @param _module           New module to add
      */
     function addModule(address _module) external onlyOperator {
@@ -165,9 +178,9 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * OPERATOR ONLY: Interact with a module registered on the SetToken. Cannot be used to call functions in the
+     * @title Interact with a module registered on the SetToken 
+     * @notice Operator only. Cannot be used to call functions in the
      * fee module, due to ability to bypass methodologist permissions to update streaming fee.
-     *
      * @param _module           Module to interact with
      * @param _data             Byte data of function to call in module
      */
@@ -179,8 +192,8 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * OPERATOR ONLY: Remove a new module from the SetToken.
-     *
+     * @title Remove a new module from the SetToken.
+     * @notice Operator only
      * @param _module           Module to remove
      */
     function removeModule(address _module) external onlyOperator {
@@ -188,8 +201,8 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * METHODOLOGIST ONLY: Update the streaming fee for the SetToken.
-     *
+     * @title Update the streaming fee for the SetToken.
+     * @notice Methodologist only
      * @param _newFee           New streaming fee percentage
      */
     function updateStreamingFee(uint256 _newFee) external onlyMethodologist {
@@ -197,9 +210,8 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * OPERATOR OR METHODOLOGIST ONLY: Update the fee recipient address. Operator and Methodologist must each call
-     * this function to execute the update.
-     *
+     * @title Update the fee recipient address. 
+     * @notice Operator and Methodologist must each call this function to execute the update.
      * @param _newFeeRecipient           New fee recipient address
      */
     function updateFeeRecipient(address _newFeeRecipient) external mutualUpgrade(operator, methodologist) {
@@ -207,9 +219,8 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * OPERATOR OR METHODOLOGIST ONLY: Update the fee split percentage. Operator and Methodologist must each call
-     * this function to execute the update.
-     *
+     * @title Update fee split between operator and methodologist
+     * @notice Operator and Methodologist must each call this function to execute the update.
      * @param _newFeeSplit           New fee split percentage
      */
     function updateFeeSplit(uint256 _newFeeSplit) external mutualUpgrade(operator, methodologist) {
@@ -224,8 +235,8 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * OPERATOR ONLY: Update the trade module
-     *
+     * @title Update the trade module
+     * @notice Operator only
      * @param _newTradeModule           New trade module
      */
     function updateTradeModule(ITradeModule _newTradeModule) external onlyOperator {
@@ -233,8 +244,8 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * METHODOLOGIST ONLY: Update the methodologist address
-     *
+     * @title Update the methodologist address
+     * @notice Methodologist only
      * @param _newMethodologist           New methodologist address
      */
     function updateMethodologist(address _newMethodologist) external onlyMethodologist {
@@ -244,8 +255,8 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * OPERATOR ONLY: Update the operator address
-     *
+     * @title Update the operator address
+     * @notice Operator only
      * @param _newOperator           New operator address
      */
     function updateOperator(address _newOperator) external onlyOperator {

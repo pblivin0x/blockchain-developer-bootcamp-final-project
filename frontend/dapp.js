@@ -1919,7 +1919,7 @@ const setTokenABI = [
 ]
 
 // Social Trading Manager Contract
-// const socialTradingManagerAddress = ''
+const socialTradingManagerAddress = '0xd178b9bfFf817Fba2363baBe39c37cd3be771f68'
 const socialTradingManagerABI = [
   {
     "inputs": [
@@ -2044,7 +2044,8 @@ const socialTradingManagerABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2057,7 +2058,8 @@ const socialTradingManagerABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2076,7 +2078,8 @@ const socialTradingManagerABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2089,7 +2092,8 @@ const socialTradingManagerABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2102,7 +2106,8 @@ const socialTradingManagerABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2115,7 +2120,8 @@ const socialTradingManagerABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2128,7 +2134,8 @@ const socialTradingManagerABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [

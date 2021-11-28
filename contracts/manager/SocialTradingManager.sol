@@ -25,7 +25,7 @@ contract SocialTradingManager is MutualUpgrade {
 
     /* ============ Events ============ */
 
-    /// @title Event when fees are accrued 
+    /// @notice Event when fees are accrued 
     /// @notice Specifies total fees, and operator/methodologist split 
     event FeesAccrued(
         uint256 _totalFees,
@@ -33,14 +33,14 @@ contract SocialTradingManager is MutualUpgrade {
         uint256 _methodologistTake
     );
 
-    /// @title Event when methodologist is changed
+    /// @notice Event when methodologist is changed
     /// @notice Specifies the old methodologist and the new methodologist
     event MethodologistChanged(
         address _oldMethodologist,
         address _newMethodologist
     );
 
-    /// @title Event when operator is changed
+    /// @notice Event when operator is changed
     /// @notice Specifies the old operator and the new operator
     event OperatorChanged(
         address _oldOperator,
@@ -67,24 +67,24 @@ contract SocialTradingManager is MutualUpgrade {
 
     /* ============ State Variables ============ */
 
-    /// @title Instance of SetToken
+    /// @notice Instance of SetToken
     ISetToken public setToken;
 
-    /// @title Address of TradeModule for executing DEX trades
+    /// @notice Address of TradeModule for executing DEX trades
     ITradeModule public tradeModule;
 
-    /// @title Address of StreamingFeeModule
+    /// @notice Address of StreamingFeeModule
     IStreamingFeeModule public feeModule;
 
-    /// @title Address of operator 
+    /// @notice Address of operator 
     /// @notice operator typically executes manager only functions on Set Protocol modules
     address public operator;
 
-    /// @title Address of methodologist
+    /// @notice Address of methodologist
     /// @notice methodologist handles streaming fee 
     address public methodologist;
 
-    /// @title Operator and Methodologist streaming fee split
+    /// @notice Operator and Methodologist streaming fee split
     /// @notice Percent in 1e18 of streamingFees sent to operator
     uint256 public operatorFeeSplit;
 
@@ -116,7 +116,7 @@ contract SocialTradingManager is MutualUpgrade {
     /* ============ External Functions ============ */
 
     /**
-     * @title Trade underlying collateral
+     * @notice Trade underlying collateral
      * @notice Executes a trade on a supported DEX. Only callable by the operator. 
      * @dev Although the SetToken units are passed in for the send and receive quantities, the total quantity
      * sent and received is the quantity of SetToken units multiplied by the SetToken totalSupply.
@@ -141,7 +141,7 @@ contract SocialTradingManager is MutualUpgrade {
         tradeModule.trade(_setToken, _exchangeName, _sendToken, _sendQuantity, _receiveToken, _minReceiveQuantity, _data);
     }
 
-    /// @title Accrue fee and distribute
+    /// @notice Accrue fee and distribute
     /// @notice Transfers tokens to operator and methodologist based on streaming fee split
     function accrueFeeAndDistribute() public {
         feeModule.accrueFee(setToken);
@@ -159,7 +159,7 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * @title Update the SetToken manager address. 
+     * @notice Update the SetToken manager address. 
      * @notice Operator and Methodologist must each call this function to execute the update. 
      * @param _newManager           New manager address
      */
@@ -169,7 +169,7 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * @title Add a new module to the SetToken.
+     * @notice Add a new module to the SetToken.
      * @notice Operator only
      * @param _module           New module to add
      */
@@ -178,7 +178,7 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * @title Interact with a module registered on the SetToken 
+     * @notice Interact with a module registered on the SetToken 
      * @notice Operator only. Cannot be used to call functions in the
      * fee module, due to ability to bypass methodologist permissions to update streaming fee.
      * @param _module           Module to interact with
@@ -192,7 +192,7 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * @title Remove a new module from the SetToken.
+     * @notice Remove a new module from the SetToken.
      * @notice Operator only
      * @param _module           Module to remove
      */
@@ -201,7 +201,7 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * @title Update the streaming fee for the SetToken.
+     * @notice Update the streaming fee for the SetToken.
      * @notice Methodologist only
      * @param _newFee           New streaming fee percentage
      */
@@ -210,7 +210,7 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * @title Update the fee recipient address. 
+     * @notice Update the fee recipient address. 
      * @notice Operator and Methodologist must each call this function to execute the update.
      * @param _newFeeRecipient           New fee recipient address
      */
@@ -219,7 +219,7 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * @title Update fee split between operator and methodologist
+     * @notice Update fee split between operator and methodologist
      * @notice Operator and Methodologist must each call this function to execute the update.
      * @param _newFeeSplit           New fee split percentage
      */
@@ -235,7 +235,7 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * @title Update the trade module
+     * @notice Update the trade module
      * @notice Operator only
      * @param _newTradeModule           New trade module
      */
@@ -244,7 +244,7 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * @title Update the methodologist address
+     * @notice Update the methodologist address
      * @notice Methodologist only
      * @param _newMethodologist           New methodologist address
      */
@@ -255,7 +255,7 @@ contract SocialTradingManager is MutualUpgrade {
     }
 
     /**
-     * @title Update the operator address
+     * @notice Update the operator address
      * @notice Operator only
      * @param _newOperator           New operator address
      */

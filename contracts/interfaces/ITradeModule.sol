@@ -23,12 +23,12 @@ interface ITradeModule {
         uint256 preTradeReceiveTokenBalance;            // Total initial balance of token being bought
     }
 
-    /// @title Initialize trade module
+    /// @notice Initialize trade module
     /// @notice Necessary to complete the process of adding a module
     function initialize(ISetToken _setToken) external;
 
     /**
-     * @title Trade underlying collateral
+     * @notice Trade underlying collateral
      * @notice Executes a trade on a supported DEX. Only callable by the operator. 
      * @dev Although the SetToken units are passed in for the send and receive quantities, the total quantity
      * sent and received is the quantity of SetToken units multiplied by the SetToken totalSupply.

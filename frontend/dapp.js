@@ -2399,13 +2399,15 @@ approveWethSubmit.onclick = async () => {
   const userAddress = document.getElementById('investor-approve-weth-address-input-box').value;
   const amount = document.getElementById('investor-approve-weth-amount-input-box').value;
 
-  console.log(userAddress, amount);
-
   var web3 = new Web3(window.ethereum)
+
+  const amount_shifted = web3.utils.toWei(amount, "ether");
+
+  console.log(userAddress, amount_shifted);
 
   const wethContract = new web3.eth.Contract(wethABI, wethAddress);
   wethContract.setProvider(window.ethereum)
-  var approveResult = await wethContract.methods.approve(userAddress, amount).send({from: ethereum.selectedAddress})
+  var approveResult = await wethContract.methods.approve(userAddress, amount_shifted).send({from: ethereum.selectedAddress})
 
   console.log(approveResult);
 }
@@ -2416,13 +2418,15 @@ approveDaiSubmit.onclick = async () => {
   const userAddress = document.getElementById('investor-approve-dai-address-input-box').value;
   const amount = document.getElementById('investor-approve-dai-amount-input-box').value;
 
-  console.log(userAddress, amount);
-
   var web3 = new Web3(window.ethereum)
+
+  const amount_shifted = web3.utils.toWei(amount, "ether");
+
+  console.log(userAddress, amount_shifted);
 
   const daiContract = new web3.eth.Contract(daiABI, daiAddress);
   daiContract.setProvider(window.ethereum)
-  var approveResult = await daiContract.methods.approve(userAddress, amount).send({from: ethereum.selectedAddress})
+  var approveResult = await daiContract.methods.approve(userAddress, amount_shifted).send({from: ethereum.selectedAddress})
 
   console.log(approveResult);
 }
@@ -2434,13 +2438,15 @@ issueSubmit.onclick = async () => {
   const quantity = document.getElementById('investor-issue-quantity-input-box').value;
   const userAddress = document.getElementById('investor-issue-to-input-box').value;
 
-  console.log(setTokenAddress, quantity, userAddress);
-
   var web3 = new Web3(window.ethereum)
+
+  const quantity_shifted = web3.utils.toWei(quantity, "ether");
+
+  console.log(setTokenAddress, quantity_shifted, userAddress);
 
   const basicIssuanceModule = new web3.eth.Contract(basicIssuanceModuleABI, basicIssuanceModuleAddress);
   basicIssuanceModule.setProvider(window.ethereum)
-  var issueResult = await basicIssuanceModule.methods.issue(setTokenAddress, quantity, userAddress).send({from: ethereum.selectedAddress})
+  var issueResult = await basicIssuanceModule.methods.issue(setTokenAddress, quantity_shifted, userAddress).send({from: ethereum.selectedAddress})
 
   console.log(issueResult);
 }
@@ -2452,13 +2458,15 @@ redeemSubmit.onclick = async () => {
   const quantity = document.getElementById('investor-redeem-quantity-input-box').value;
   const userAddress = document.getElementById('investor-redeem-to-input-box').value;
 
-  console.log(setTokenAddress, quantity, userAddress);
-
   var web3 = new Web3(window.ethereum)
+
+  const quantity_shifted = web3.utils.toWei(quantity, "ether");
+
+  console.log(setTokenAddress, quantity_shifted, userAddress);
 
   const basicIssuanceModule = new web3.eth.Contract(basicIssuanceModuleABI, basicIssuanceModuleAddress);
   basicIssuanceModule.setProvider(window.ethereum)
-  var redeemResult = await basicIssuanceModule.methods.redeem(setTokenAddress, quantity, userAddress).send({from: ethereum.selectedAddress})
+  var redeemResult = await basicIssuanceModule.methods.redeem(setTokenAddress, quantity_shifted, userAddress).send({from: ethereum.selectedAddress})
 
   console.log(redeemResult);
 }
@@ -2472,25 +2480,28 @@ stmTradeSubmit.onclick = async () => {
     const stmTradeSendQuantity = document.getElementById('stm-trade-sendquantity-input-box').value;
     const stmTradeReceiveToken = document.getElementById('stm-trade-receivetoken-input-box').value;
     const stmTradeReceiveQuantity = document.getElementById('stm-trade-receivequantity-input-box').value;
+
+    var web3 = new Web3(window.ethereum)
+
+    const stmTradeSendQuantity_shifted = web3.utils.toWei(stmTradeSendQuantity, "ether");
+    const stmTradeReceiveQuantity_shifted = web3.utils.toWei(stmTradeReceiveQuantity, "ether");
     
     console.log(stmTradeSetTokenAddress, 
         stmTradeExchangeName, 
         stmTradeSendToken, 
-        stmTradeSendQuantity, 
+        stmTradeSendQuantity_shifted, 
         stmTradeReceiveToken, 
-        stmTradeReceiveQuantity
+        stmTradeReceiveQuantity_shifted
     )
-
-    var web3 = new Web3(window.ethereum)
 
     const socialTradingManager = new web3.eth.Contract(socialTradingManagerABI, socialTradingManagerAddress)
     socialTradingManager.setProvider(window.ethereum)
     await socialTradingManager.methods.trade(stmTradeSetTokenAddress, 
         stmTradeExchangeName, 
         stmTradeSendToken, 
-        stmTradeSendQuantity, 
+        stmTradeSendQuantity_shifted, 
         stmTradeReceiveToken, 
-        stmTradeReceiveQuantity).send({from: ethereum.selectedAddress})
+        stmTradeReceiveQuantity_shifted).send({from: ethereum.selectedAddress})
 };
 
 // Operator: Change Operator
@@ -2511,14 +2522,16 @@ stmOperatorSubmit.onclick = async () => {
 const stmStreamingSubmit = document.getElementById('stm-streamingfee-input-button');
 stmStreamingSubmit.onclick = async () => {
     const stmStreamingFee = document.getElementById('stm-streamingfee-input-box').value;
-    
-    console.log(stmStreamingFee);
 
     var web3 = new Web3(window.ethereum)
 
+    const stmStreamingFee_shifted = web3.utils.toWei(stmStreamingFee, "ether");
+    
+    console.log(stmStreamingFee_shifted);
+
     const socialTradingManager = new web3.eth.Contract(socialTradingManagerABI, socialTradingManagerAddress);
     socialTradingManager.setProvider(window.ethereum)
-    await socialTradingManager.methods.updateStreamingFee(stmStreamingFee).send({from: ethereum.selectedAddress})
+    await socialTradingManager.methods.updateStreamingFee(stmStreamingFee_shifted).send({from: ethereum.selectedAddress})
 }
 
 // Methodologist: Change Methodologist
@@ -2544,25 +2557,19 @@ createSetSubmit.onclick = async () => {
   const setName = document.getElementById('create-default-set-name-input-box').value;
   const setSymbol = document.getElementById('create-default-set-symbol-input-box').value;
 
-  console.log(setManager, setWETH, setDAI, setName, setSymbol);
-
-  // Components
-  const wethAddress = '0xd0A1E359811322d97991E03f863a0C30C2cF029C'
-  const daiAddress = '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa'
-
-  // Modules
-  const basicIssuanceModuleAddress = '0x8a070235a4B9b477655Bf4Eb65a1dB81051B3cC1'
-  const streamingFeeModuleAddress = '0xE038E59DEEC8657d105B6a3Fb5040b3a6189Dd51'
-  const tradeModuleAddress = '0xC93c8CDE0eDf4963ea1eea156099B285A945210a'
-
   var web3 = new Web3(window.ethereum)
+
+  const setWETH_shifted = web3.utils.toWei(setWETH, "ether");
+  const setDAI_shifted = web3.utils.toWei(setDAI, "ether");
+
+  console.log(setManager, setWETH_shifted, setDAI_shifted, setName, setSymbol);
 
   var createdSetAddress = document.getElementById('created-set-address');
 
   const setTokenCreator = new web3.eth.Contract(setTokenCreatorABI, setTokenCreatorAddress);
   setTokenCreator.setProvider(window.ethereum)
   var newAddress = await setTokenCreator.methods.create([wethAddress, daiAddress],
-                                                        [setWETH, setDAI],
+                                                        [setWETH_shifted, setDAI_shifted],
                                                         [basicIssuanceModuleAddress, streamingFeeModuleAddress, tradeModuleAddress],
                                                         setManager,
                                                         setName,
@@ -2594,11 +2601,14 @@ initSFSubmit.onclick = async () => {
   const maxStreamingFeePercentage = document.getElementById('initialize-sf-maxFee-input-box').value;
   const streamingFeePercentage = document.getElementById('initialize-sf-feePercentage-input-box').value;
 
-  console.log(setTokenAddress, feeRecepient, maxStreamingFeePercentage, streamingFeePercentage);
-
-  const feeState = [feeRecepient, maxStreamingFeePercentage, streamingFeePercentage, 0];
-  
   var web3 = new Web3(window.ethereum)
+
+  const maxStreamingFeePercentage_shifted = web3.utils.toWei(maxStreamingFeePercentage, "ether");
+  const streamingFeePercentage_shifted = web3.utils.toWei(streamingFeePercentage, "ether");
+
+  console.log(setTokenAddress, feeRecepient, maxStreamingFeePercentage_shifted, streamingFeePercentage_shifted);
+
+  const feeState = [feeRecepient, maxStreamingFeePercentage_shifted, streamingFeePercentage_shifted, 0];
 
   const streamingFeeModule = new web3.eth.Contract(streamingFeeModuleABI, streamingFeeModuleAddress);
   streamingFeeModule.setProvider(window.ethereum)

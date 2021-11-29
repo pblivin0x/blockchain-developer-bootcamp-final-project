@@ -51,12 +51,21 @@
     <div id="mm-current-account"></div>
     <br>
 
+    <h2>PBSocial Set Token</h2>
+    <p>Name: PBSocial</p>
+    <p>Symbol: PBS</p>
+    <p>SetToken Contract Address: 0xAa22BCa283b9Fd4bDd2c693a7930b45C00096d63</p>
+    <p>Manager Contract Address:  0xd178b9bfFf817Fba2363baBe39c37cd3be771f68</p>
+
+
+    <br>
     <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'Investor')" id="defaultOpen">Investor</button>
         <button class="tablinks" onclick="openTab(event, 'Operator')">Operator</button>
         <button class="tablinks" onclick="openTab(event, 'Methodologist')">Methodologist</button>
         <button class="tablinks" onclick="openTab(event, 'Social Trader')">Social Trader</button>
     </div>
+    <br>
 
     <!-- Allow user send a transaction / update contract state -->
 
@@ -65,7 +74,7 @@
 
         <h3>Get Required Components for Issue</h3>
         <p>Get the addresses and units required to mint a given quantity of a Set Token</p>
-        <input id="investor-require-token-input-box" type="text" placeholder="Set Token Address">
+        <input id="investor-require-token-input-box" type="text" placeholder="Set Token Address" value="0xAa22BCa283b9Fd4bDd2c693a7930b45C00096d63">
         <input id="investor-require-quantity-input-box" type="text" placeholder="Quantity">
         <button id="investor-require-button">Get Required Components</button>
 
@@ -74,17 +83,32 @@
         Deposits components into the Set Token and mints the Set Token to the User Address. 
         Components must be approved to the BasicIssuanceModule contract ahead of the issuance call. 
         </p>
-        <input id="investor-issue-token-input-box" type="text" placeholder="Set Token Address">
+
+        <h5>Step 1: Approve Components</h5>
+
+        <input id="investor-approve-weth-address-input-box" type="text" placeholder="User Address">
+        <input id="investor-approve-weth-amount-input-box" type="number" placeholder="Amount">
+        <button id="investor-approve-weth-button">Approve WETH</button>
+
+        <br>
+
+        <input id="investor-approve-dai-address-input-box" type="text" placeholder="User Address">
+        <input id="investor-approve-dai-amount-input-box" type="number" placeholder="Amount">
+        <button id="investor-approve-dai-button">Approve DAI</button>
+
+
+        <h5>Step 2: Issue Set Token</h5>
+        <input id="investor-issue-token-input-box" type="text" placeholder="Set Token Address" value="0xAa22BCa283b9Fd4bDd2c693a7930b45C00096d63">
         <input id="investor-issue-quantity-input-box" type="number" placeholder="Quantity">
         <input id="investor-issue-to-input-box" type="text" placeholder="User Address">
         <button id="investor-issue-button">Issue Set Tokens</button>
 
-        <h3>Redeem</h3>
+        <h3>Redeem Set Token</h3>
         <p>
           Redeems the Set Token's positions and sends the components of the given quantity 
           to the User Address. 
         </p>
-        <input id="investor-redeem-token-input-box" type="text" placeholder="Set Token Address">
+        <input id="investor-redeem-token-input-box" type="text" placeholder="Set Token Address" value="0xAa22BCa283b9Fd4bDd2c693a7930b45C00096d63">
         <input id="investor-redeem-quantity-input-box" type="number" placeholder="Quantity">
         <input id="investor-redeem-to-input-box" type="text" placeholder="User Address">
         <button id="investor-redeem-button">Redeem Set Tokens</button>
@@ -97,7 +121,7 @@
         <p>
           Executes a trade on a supported DEX. 
         </p>
-        <input id="stm-trade-settoken-input-box" type="text" placeholder="Set Token Address">
+        <input id="stm-trade-settoken-input-box" type="text" placeholder="Set Token Address" value="0xAa22BCa283b9Fd4bDd2c693a7930b45C00096d63">
         <input id="stm-trade-exchange-input-box" type="text" placeholder="Exchange Name">
         <input id="stm-trade-sendtoken-input-box" type="text" placeholder="Token to Send">
         <input id="stm-trade-sendquantity-input-box" type="text" placeholder="Send Quantity">

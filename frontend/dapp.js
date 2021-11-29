@@ -2371,7 +2371,7 @@ requireSubmit.onclick = async () => {
   const setTokenAddress = document.getElementById('investor-require-token-input-box').value;
   const quantity = document.getElementById('investor-require-quantity-input-box').value;
 
-  const quantity_shifted = web3.toWei(quantity);
+  const quantity_shifted = web3.utils.toWei(quantity, "ether");
   
   console.log(setTokenAddress, quantity_shifted);
 
@@ -2386,8 +2386,8 @@ requireSubmit.onclick = async () => {
   var requiredWETH = document.getElementById('required-weth');
   var requiredDAI = document.getElementById('required-dai');
 
-  const requiredWETH_shifted = web3.fromWei(componentUnits[1][0]);
-  const requiredDAI_shifted = web3.fromWei(componentUnits[1][1]);
+  const requiredWETH_shifted = web3.utils.fromWei(componentUnits[1][0], "ether");
+  const requiredDAI_shifted = web3.utils.fromWei(componentUnits[1][1], "ether");
 
   requiredWETH.innerHTML = 'Required WETH Units: ' + requiredWETH_shifted;
   requiredDAI.innerHTML = 'Required DAI Units: ' + requiredDAI_shifted;

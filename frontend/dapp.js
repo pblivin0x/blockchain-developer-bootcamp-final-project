@@ -1,5 +1,3 @@
-const BigNumber = require('bignumber.js');
-
 // Set Token Creator Contract
 const setTokenCreatorAddress = '0x324152c8Ada7AbCc083ACB6e2090fa6266e2AbeD'
 const setTokenCreatorABI = [
@@ -2371,9 +2369,9 @@ mmEnable.onclick = async () => {
 const requireSubmit = document.getElementById('investor-require-button');
 requireSubmit.onclick = async () => {
   const setTokenAddress = document.getElementById('investor-require-token-input-box').value;
-  const quantity = new BigNumber(document.getElementById('investor-require-quantity-input-box').value);
+  const quantity = document.getElementById('investor-require-quantity-input-box').value;
 
-  const quantity_shifted = quantity.shiftedBy(18);
+  const quantity_shifted = web3.utils.toWei(quantity);
   
   console.log(setTokenAddress, quantity_shifted);
 
@@ -2388,11 +2386,8 @@ requireSubmit.onclick = async () => {
   var requiredWETH = document.getElementById('required-weth');
   var requiredDAI = document.getElementById('required-dai');
 
-  const requiredWETH_unshifted = new BigNumber(componentUnits[1][0]);
-  const requiredWETH_shifted = requiredWETH_unshifted.shiftedBy(-18);
-
-  const requiredDAI_unshifted = new BigNumber(componentUnits[1][1]);
-  const requiredDAI_shifted = requiredDAI_unshifted.shiftedBy(-18);
+  const requiredWETH_shifted = web3.utils.fromWei(componentUnits[1][0]);
+  const requiredDAI_shifted = web3.utils.fromWei(componentUnits[1][1]);
 
   requiredWETH.innerHTML = 'Required WETH Units: ' + requiredWETH_shifted;
   requiredDAI.innerHTML = 'Required DAI Units: ' + requiredDAI_shifted;

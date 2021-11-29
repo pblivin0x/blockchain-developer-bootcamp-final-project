@@ -2381,15 +2381,21 @@ requireSubmit.onclick = async () => {
 
   const basicIssuanceModule = new web3.eth.Contract(basicIssuanceModuleABI, basicIssuanceModuleAddress);
   basicIssuanceModule.setProvider(window.ethereum)
-  var componentUnits = await basicIssuanceModule.methods.getRequiredComponentUnitsForIssue(setTokenAddress, quantity).call()
+  var componentUnits = await basicIssuanceModule.methods.getRequiredComponentUnitsForIssue(setTokenAddress, quantity_shifted).call()
 
   console.log(componentUnits);
 
   var requiredWETH = document.getElementById('required-weth');
   var requiredDAI = document.getElementById('required-dai');
 
-  requiredWETH.innerHTML = 'Required WETH Units: ' + BigNumber(componentUnits[1][0]).shiftedBy(-18);
-  requiredDAI.innerHTML = 'Required DAI Units: ' + BigNumber(componentUnits[1][1]).shiftedBy(-18);
+  const requiredWETH_unshifted = new BigNumber(componentUnits[1][0]);
+  const requiredWETH_shifted = requiredWETH_unshifted.shiftedBy(-18);
+
+  const requiredDAI_unshifted = new BigNumber(componentUnits[1][1]);
+  const requiredDAI_shifted = requiredDAI_unshifted.shiftedBy(-18);
+
+  requiredWETH.innerHTML = 'Required WETH Units: ' + requiredWETH_shifted;
+  requiredDAI.innerHTML = 'Required DAI Units: ' + requiredDAI_shifted;
 }
 
 // Investor: Approve WETH

@@ -2371,11 +2371,11 @@ requireSubmit.onclick = async () => {
   const setTokenAddress = document.getElementById('investor-require-token-input-box').value;
   const quantity = document.getElementById('investor-require-quantity-input-box').value;
 
+  var web3 = new Web3(window.ethereum)
+
   const quantity_shifted = web3.utils.toWei(quantity, "ether");
   
   console.log(setTokenAddress, quantity_shifted);
-
-  var web3 = new Web3(window.ethereum)
 
   const basicIssuanceModule = new web3.eth.Contract(basicIssuanceModuleABI, basicIssuanceModuleAddress);
   basicIssuanceModule.setProvider(window.ethereum)

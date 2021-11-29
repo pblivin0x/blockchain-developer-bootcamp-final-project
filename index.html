@@ -75,8 +75,11 @@
         <h3>Get Required Components for Issue</h3>
         <p>Get the addresses and units required to mint a given quantity of a Set Token</p>
         <input id="investor-require-token-input-box" type="text" placeholder="Set Token Address" value="0xAa22BCa283b9Fd4bDd2c693a7930b45C00096d63">
-        <input id="investor-require-quantity-input-box" type="text" placeholder="Quantity">
+        <input id="investor-require-quantity-input-box" type="text" placeholder="Quantity" value="1">
         <button id="investor-require-button">Get Required Components</button>
+        <br>
+        <div id="required-weth"></div>
+        <div id="required-dai"></div>
 
         <h3>Issue</h3>
         <p>
@@ -124,7 +127,7 @@
           Executes a trade on a supported DEX. 
         </p>
         <input id="stm-trade-settoken-input-box" type="text" placeholder="Set Token Address" value="0xAa22BCa283b9Fd4bDd2c693a7930b45C00096d63">
-        <input id="stm-trade-exchange-input-box" type="text" placeholder="Exchange Name">
+        <input id="stm-trade-exchange-input-box" type="text" placeholder="Exchange Name" value="UniswapV2ExchangeAdapter">
         <input id="stm-trade-sendtoken-input-box" type="text" placeholder="Token to Send">
         <input id="stm-trade-sendquantity-input-box" type="text" placeholder="Send Quantity">
         <input id="stm-trade-receivetoken-input-box" type="text" placeholder="Token to Receive">

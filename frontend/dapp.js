@@ -1,3 +1,5 @@
+const BigNumber = require('bignumber.js');
+
 // Set Token Creator Contract
 const setTokenCreatorAddress = '0x324152c8Ada7AbCc083ACB6e2090fa6266e2AbeD'
 const setTokenCreatorABI = [
@@ -2369,9 +2371,11 @@ mmEnable.onclick = async () => {
 const requireSubmit = document.getElementById('investor-require-button');
 requireSubmit.onclick = async () => {
   const setTokenAddress = document.getElementById('investor-require-token-input-box').value;
-  const quantity = document.getElementById('investor-require-quantity-input-box').value;
+  const quantity = new BigNumber(document.getElementById('investor-require-quantity-input-box').value);
+
+  const quantity_shifted = quantity.shiftedBy(18);
   
-  console.log(setTokenAddress, quantity);
+  console.log(setTokenAddress, quantity_shifted);
 
   var web3 = new Web3(window.ethereum)
 
@@ -2380,6 +2384,12 @@ requireSubmit.onclick = async () => {
   var componentUnits = await basicIssuanceModule.methods.getRequiredComponentUnitsForIssue(setTokenAddress, quantity).call()
 
   console.log(componentUnits);
+
+  var requiredWETH = document.getElementById('required-weth');
+  var requiredDAI = document.getElementById('required-dai');
+
+  requiredWETH.innerHTML = 'Required WETH Units: ' + BigNumber(componentUnits[1][0]).shiftedBy(-18);
+  requiredDAI.innerHTML = 'Required DAI Units: ' + BigNumber(componentUnits[1][1]).shiftedBy(-18);
 }
 
 // Investor: Approve WETH

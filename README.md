@@ -8,13 +8,19 @@ This dApp will utilize [Set Protocol V2](https://docs.tokensets.com/) to create 
 
 ![](diagrams/socialTradingArchitecture.jpg)
 
-## Algorithmic Trading Set
+## Future Work: Algorithmic Trading Set
 
 In future work, this dApp is looking to add an Algorithmic Trading Set. In this system a Strategy Adapter instructs the Manager on how to call the Trade Module when triggered by a Keeper Bot. 
 
 ![](diagrams/algorithmicTradingArchitecture.jpg)
 
 ## Directory Structure 
+
+- `contracts`: `manager/SocialTradingManager.sol` is the main contract, which acts as the smart contract manager for the PBSocial token. `interfaces/ITradeModule.sol` is also custom. The rest of the contracts come from Set Protocol. 
+- `diagrams`: Contract architecture diagrams used in the README.md
+- `frontend`: Holds `dapp.js` which is the JavaScript for the front end. `index.html` lies outside this folder for Github Pages to recognize. 
+- `migrations`: deployment scripts for truffle
+- `test`: A handful of tests for the `SocialTradingManager` contract
 
 ```bash
 blockchain-developer-bootcamp-final-project
@@ -42,11 +48,16 @@ blockchain-developer-bootcamp-final-project
 
 ├── migrations
 │   ├── 1_initial_migration.js
+│   ├── 2_social_trading_manager.js
 
 ├── test
+│   ├── social_trading_manager.js
 
 ├── .gitignore
 ├── README.md
+├── avoiding_common_attacks.md
+├── deployed_address.txt
+├── design_pattern_decisions.md
 ├── index.html
 ├── package-lock.json
 ├── package.json
@@ -59,9 +70,41 @@ The frontend interface is hosted on Github Pages at [pblivin0x.github.io/blockch
 
 ## Ethereum Address for NFT Certificate
 
-pblivin.eth
+pblivin.eth (`0xD20673d9c07BaA5400B9DF075C3077DfE75A1a1F`)
+
+## Installing Dependencies
+
+### Node
+
+```bash
+npm install @openzeppelin/contracts@3.1.0
+```
+
+```bash
+npm install @truffle/hdwallet-provider
+```
+
+```bash
+npm install dotenv
+```
+
+## Running Smart Contract Unit Tests
+
+```bash
+truffle test
+```
+
+## Deployment Workflow
+
+- In the "Social Trader" tab of the frontend, create a Set Token, yielding a new `setTokenAddress`
+- Deploy the Social Trading Manager `truffle migrate --network kovan` with the new `setTokenAddress` in the constructor, yielding a new `socialTradingManagerAddress`
+- Initialize the `BasicIssuanceModule`
+- Initialize the `StreamingFeeModule` with the `socialTradingManagerAddress` as the fee recipient
+- Initialize the `TradeModule`
+- Update the Set Token Manager to `socialTradingManagerAddress`
 
 ## Acknowledgements
 * [ConsenSys Academy](https://courses.consensys.net/)
 * [Set Protocol](https://www.setprotocol.com/): [[Documentation](https://docs.tokensets.com/)] [[Github](https://github.com/SetProtocol/set-protocol-v2)] [[Index Coop Github](https://github.com/SetProtocol/index-coop-smart-contracts)][[FLI Technical Intro](https://docs.google.com/presentation/d/1oQcuKkcyNWZ7nO-IqY-tk9h3Vb4_lktX0AyfEwdxDNs)]
 * [Truffle](https://trufflesuite.com/)
+* [Paradigm MultiFaucet](https://faucet.paradigm.xyz/)

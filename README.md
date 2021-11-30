@@ -94,6 +94,10 @@ npm install dotenv
 truffle test
 ```
 
+## Screencast Walkthrough
+
+[https://youtu.be/tRG-nBzPbQ8](https://youtu.be/tRG-nBzPbQ8)
+
 ## Deployment Workflow
 
 - In the "Social Trader" tab of the frontend, create a Set Token, yielding a new `setTokenAddress`

@@ -2392,32 +2392,6 @@ pbsocialGetComponents.onclick = async () => {
   pbsocialComponents.innerHTML = 'PBSocial Components: ' + pbsocialGetComponentsResult;
 }
 
-// PBSocial: Get WETH Default Position
-const pbsocialGetWETH = document.getElementById('get-weth-position');
-pbsocialGetWETH.onclick = async () => {
-  var web3 = new Web3(window.ethereum)
-  const pbsocial = new web3.eth.Contract(setTokenABI, PBSocialSetTokenAddress);
-  pbsocial.setProvider(window.ethereum)
-  var pbsocialGetWETHResult = await pbsocial.methods.getDefaultPositionRealUnit(wethAddress).call()
-  console.log(pbsocialGetWETHResult);
-
-  var pbsocialWETHPosition = document.getElementById('pbsocial-weth-position');
-  pbsocialWETHPosition.innerHTML = web3.utils.fromWei(pbsocialGetWETHResult, "ether") + ' WETH';
-}
-
-// PBSocial: Get DAI Default Position 
-const pbsocialGetDAI = document.getElementById('get-dai-position');
-pbsocialGetDAI.onclick = async () => {
-  var web3 = new Web3(window.ethereum)
-  const pbsocial = new web3.eth.Contract(setTokenABI, PBSocialSetTokenAddress);
-  pbsocial.setProvider(window.ethereum)
-  var pbsocialGetDAIResult = await pbsocial.methods.getDefaultPositionRealUnit(daiAddress).call()
-  console.log(pbsocialGetDAIResult);
-
-  var pbsocialDAIPosition = document.getElementById('pbsocial-dai-position');
-  pbsocialDAIPosition.innerHTML = web3.utils.fromWei(pbsocialGetDAIResult, "ether") + ' DAI';
-}
-
 // PBSocial: Accrue Fee and Distribute
 const pbsocialAccrueFee = document.getElementById('accrue-fee-button');
 pbsocialAccrueFee.onclick = async () => {

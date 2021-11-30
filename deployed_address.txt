@@ -1,2 +1,2 @@
-Address: 0xd178b9bfFf817Fba2363baBe39c37cd3be771f68
+Address: 0xF7c1492D705cfa50181dE7Ec27dE4727A1346390
 Network: Kovan

@@ -2,7 +2,7 @@
 // Custom trade module to interact with Set Protocol's TradeModule
 // TradeModule: https://github.com/SetProtocol/set-protocol-v2/blob/master/contracts/protocol/modules/TradeModule.sol
 
-pragma solidity ^0.6.10;
+pragma solidity 0.6.10;
 pragma experimental "ABIEncoderV2";
 
 import { ISetToken } from "./ISetToken.sol";

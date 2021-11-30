@@ -2410,6 +2410,12 @@ approveWethSubmit.onclick = async () => {
   var approveResult = await wethContract.methods.approve(userAddress, amount_shifted).send({from: ethereum.selectedAddress})
 
   console.log(approveResult);
+  const approveWETHResult = document.getElementById('approve-weth');
+  if (approveResult.status) {
+    approveWETHResult.innerHTML = 'WETH Approval Successful!';
+  } else {
+    approveWETHResult.innerHTML = 'Warning: WETH Approval Unsuccessful!';
+  }
 }
 
 // Investor: Approve DAI
@@ -2429,6 +2435,12 @@ approveDaiSubmit.onclick = async () => {
   var approveResult = await daiContract.methods.approve(userAddress, amount_shifted).send({from: ethereum.selectedAddress})
 
   console.log(approveResult);
+  const approveDAIResult = document.getElementById('approve-dai');
+  if (approveResult.status) {
+    approveDAIResult.innerHTML = 'DAI Approval Successful!';
+  } else {
+    approveDAIResult.innerHTML = 'Warning: DAI Approval Unsuccessful!';
+  }
 }
 
 // Investor: Issue
@@ -2449,6 +2461,9 @@ issueSubmit.onclick = async () => {
   var issueResult = await basicIssuanceModule.methods.issue(setTokenAddress, quantity_shifted, userAddress).send({from: ethereum.selectedAddress})
 
   console.log(issueResult);
+  const issueResultUnits = web3.utils.fromWei(issueResult.events.SetTokenIssued.returnValues._quantity, "ether");
+  const issueSetTokenResult = document.getElementById('issue-set-token');
+  issueSetTokenResult.innerHTML = issueResultUnits + ' PBS Tokens Issued!';
 }
 
 // Investor: Redeem
@@ -2469,6 +2484,9 @@ redeemSubmit.onclick = async () => {
   var redeemResult = await basicIssuanceModule.methods.redeem(setTokenAddress, quantity_shifted, userAddress).send({from: ethereum.selectedAddress})
 
   console.log(redeemResult);
+  const redeemResultUnits = web3.utils.fromWei(redeemResult.events.SetTokenRedeemed.returnValues._quantity, "ether");
+  const redeemSetTokenResult = document.getElementById('redeem-set-token');
+  redeemSetTokenResult.innerHTML = redeemResultUnits + ' PBS Tokens Redeemed!';
 }
 
 // Operator: Submit Trade
@@ -2496,12 +2514,14 @@ stmTradeSubmit.onclick = async () => {
 
     const socialTradingManager = new web3.eth.Contract(socialTradingManagerABI, socialTradingManagerAddress)
     socialTradingManager.setProvider(window.ethereum)
-    await socialTradingManager.methods.trade(stmTradeSetTokenAddress, 
+    var tradeResult = await socialTradingManager.methods.trade(stmTradeSetTokenAddress, 
         stmTradeExchangeName, 
         stmTradeSendToken, 
         stmTradeSendQuantity_shifted, 
         stmTradeReceiveToken, 
         stmTradeReceiveQuantity_shifted).send({from: ethereum.selectedAddress})
+
+    console.log(tradeResult)
 };
 
 // Operator: Change Operator

@@ -95,12 +95,14 @@
         <input id="investor-approve-weth-address-input-box" type="text" placeholder="BasicIssuanceModule Address" value="0x8a070235a4B9b477655Bf4Eb65a1dB81051B3cC1">
         <input id="investor-approve-weth-amount-input-box" type="number" placeholder="Amount">
         <button id="investor-approve-weth-button">Approve WETH</button>
+        <div id="approve-weth"></div>
 
         <br>
 
         <input id="investor-approve-dai-address-input-box" type="text" placeholder="BasicIssuanceModule Address" value="0x8a070235a4B9b477655Bf4Eb65a1dB81051B3cC1">
         <input id="investor-approve-dai-amount-input-box" type="number" placeholder="Amount">
         <button id="investor-approve-dai-button">Approve DAI</button>
+        <div id="approve-dai"></div>
 
 
         <h5>Step 2: Issue Set Token</h5>
@@ -108,6 +110,7 @@
         <input id="investor-issue-quantity-input-box" type="number" placeholder="Quantity">
         <input id="investor-issue-to-input-box" type="text" placeholder="User Address">
         <button id="investor-issue-button">Issue Set Tokens</button>
+        <div id="issue-set-token"></div>
 
         <h3>Redeem Set Token</h3>
         <p>
@@ -118,6 +121,7 @@
         <input id="investor-redeem-quantity-input-box" type="number" placeholder="Quantity">
         <input id="investor-redeem-to-input-box" type="text" placeholder="User Address">
         <button id="investor-redeem-button">Redeem Set Tokens</button>
+        <div id="redeem-set-token"></div>
     </div>
 
     <div id="Operator" class="tabcontent">
@@ -129,11 +133,12 @@
         </p>
         <input id="stm-trade-settoken-input-box" type="text" placeholder="Set Token Address" value="0xAa22BCa283b9Fd4bDd2c693a7930b45C00096d63">
         <input id="stm-trade-exchange-input-box" type="text" placeholder="Exchange Name" value="UniswapV2ExchangeAdapter">
-        <input id="stm-trade-sendtoken-input-box" type="text" placeholder="Token to Send">
+        <input id="stm-trade-sendtoken-input-box" type="text" placeholder="Token to Send" value="0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa">
         <input id="stm-trade-sendquantity-input-box" type="text" placeholder="Send Quantity">
-        <input id="stm-trade-receivetoken-input-box" type="text" placeholder="Token to Receive">
+        <input id="stm-trade-receivetoken-input-box" type="text" placeholder="Token to Receive" value="0xd0A1E359811322d97991E03f863a0C30C2cF029C">
         <input id="stm-trade-receivequantity-input-box" type="text" placeholder="Receive Quantity">
         <button id="stm-trade-input-button">Submit Trade</button>
+        <div id="trade-result"></div>
 
         <h3>Change Operator</h3>
         <p>

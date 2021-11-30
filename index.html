@@ -55,7 +55,38 @@
     <p>Name: PBSocial</p>
     <p>Symbol: PBS</p>
     <p>SetToken Contract Address: 0xAa22BCa283b9Fd4bDd2c693a7930b45C00096d63</p>
-    <p>Manager Contract Address:  0xd178b9bfFf817Fba2363baBe39c37cd3be771f68</p>
+
+    <div>
+      <h5>PBSocial Manager</h5>
+      <button id="get-pbsocial-manager-address">Get PBSocial Manager</button>
+      <div id="pbsocial-manager-address"></div>
+    </div>
+
+    <div>
+      <h5>PBSocial Component Addresses</h5>
+      <button id="get-pbsocial-components">Get PBSocial Components</button>
+      <div id="pbsocial-components"></div>
+    </div>
+
+    <div>
+      <h5>PBSocial WETH Default Position</h5>
+      <button id="get-weth-position">Get WETH Default Position</button>
+      <div id="pbsocial-weth-position"></div>
+    </div>
+
+    <div>
+      <h5>PBSocial DAI Default Position</h5>
+      <button id="get-dai-position">Get DAI Default Position</button>
+      <div id="pbsocial-dai-position"></div>
+    </div>
+
+    <div>
+      <h5>Accrue Streaming Fee and Distribute</h5>
+      <button id="accrue-fee-button">Accrue Streaming Fee and Distribute</button>
+      <div id="accrue-fee-total"></div>
+      <div id="accrue-fee-methodologist"></div>
+      <div id="accrue-fee-operator"></div>
+    </div>
 
 
     <br>
@@ -146,6 +177,7 @@
         </p>
         <input id="stm-changeoperator-input-box" type="text" placeholder="New Operator Address">
         <button id="stm-changeoperator-input-button">Change Operator</button>
+        <div id="change-operator"></div>
     </div>
 
     <div id="Methodologist" class="tabcontent">
@@ -157,6 +189,7 @@
         </p>
         <input id="stm-streamingfee-input-box" type="number" placeholder="0">
         <button id="stm-streamingfee-input-button">Update Streaming Fee</button>
+        <div id="update-fee"></div>
 
         <h3>Change Methodologist</h3>
         <p>
@@ -164,6 +197,7 @@
         </p>
         <input id="stm-changemethodologist-input-box" type="text" placeholder="New Methodologist Address">
         <button id="stm-changemethodologist-input-button">Change Methodologist</button>
+        <div id="change-methodologist"></div>
     </div>
 
     <div id="Social Trader" class="tabcontent">
@@ -186,6 +220,7 @@
         <p>Initialize the Basic Issuance Module to the deployed Set Token</p>
         <input id="initialize-bi-module-input-box" type="text" placeholder="Set Token Address">
         <button id="initialize-bi-module-button">Initialize Module</button>
+        <div id="init-bi"></div>
 
         <h4>Streaming Fee Module</h4>
         <p>Initialize the Streaming Fee Module to the deployed Set Token</p>
@@ -194,17 +229,20 @@
         <input id="initialize-sf-maxFee-input-box" type="text" placeholder="Max Streaming Fee Percentage">
         <input id="initialize-sf-feePercentage-input-box" type="text" placeholder="Streaming Fee Percentage">
         <button id="initialize-sf-module-button">Initialize Module</button>
+        <div id="init-sf"></div>
 
         <h4>Trade Module</h4>
         <p>Initialize the Trade Module to the deployed Set Token</p>
         <input id="initialize-t-module-input-box" type="text" placeholder="Set Token Address">
         <button id="initialize-t-module-button">Initialize Module</button>
+        <div id="init-t"></div>
 
         <h3>Change Manager</h3>
         <p>Change Manager of Set Token, useful for setting deployed contract as Manager</p>
         <input id="change-manager-setToken-input-box" type="text" placeholder="Set Token Address">
         <input id="change-manager-newManager-input-box" type="text" placeholder="New Manager Address">
         <button id="change-manager-button">Change Manager</button>
+        <div id="change-manager"></div>
     </div>
 
     <script>

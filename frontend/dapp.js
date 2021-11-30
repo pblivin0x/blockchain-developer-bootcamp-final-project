@@ -2365,6 +2365,78 @@ mmEnable.onclick = async () => {
 
 // Allow user send a transaction / update contract state
 
+// PBSocial: Get Manager
+const pbsocialGetManager = document.getElementById('get-pbsocial-manager-address');
+pbsocialGetManager.onclick = async () => {
+  var web3 = new Web3(window.ethereum)
+
+  const pbsocial = new web3.eth.Contract(setTokenABI, PBSocialSetTokenAddress);
+  pbsocial.setProvider(window.ethereum)
+  var pbsocialGetManagerResult = await pbsocial.methods.manager().call()
+  console.log(pbsocialGetManagerResult);
+
+  var pbsocialManager = document.getElementById('pbsocial-manager-address');
+  pbsocialManager.innerHTML = 'PBSocial Manager Address: ' + pbsocialGetManagerResult;
+}
+
+// PBSocial: Get Components
+const pbsocialGetComponents = document.getElementById('get-pbsocial-components');
+pbsocialGetComponents.onclick = async () => {
+  var web3 = new Web3(window.ethereum)
+  const pbsocial = new web3.eth.Contract(setTokenABI, PBSocialSetTokenAddress);
+  pbsocial.setProvider(window.ethereum)
+  var pbsocialGetComponentsResult = await pbsocial.methods.getComponents().call()
+  console.log(pbsocialGetComponentsResult);
+
+  var pbsocialComponents = document.getElementById('pbsocial-components');
+  pbsocialComponents.innerHTML = 'PBSocial Components: ' + pbsocialGetComponentsResult;
+}
+
+// PBSocial: Get WETH Default Position
+const pbsocialGetWETH = document.getElementById('get-weth-position');
+pbsocialGetWETH.onclick = async () => {
+  var web3 = new Web3(window.ethereum)
+  const pbsocial = new web3.eth.Contract(setTokenABI, PBSocialSetTokenAddress);
+  pbsocial.setProvider(window.ethereum)
+  var pbsocialGetWETHResult = await pbsocial.methods.getDefaultPositionRealUnit(wethAddress).call()
+  console.log(pbsocialGetWETHResult);
+
+  var pbsocialWETHPosition = document.getElementById('pbsocial-weth-position');
+  pbsocialWETHPosition.innerHTML = web3.utils.fromWei(pbsocialGetWETHResult, "ether") + ' WETH';
+}
+
+// PBSocial: Get DAI Default Position 
+const pbsocialGetDAI = document.getElementById('get-dai-position');
+pbsocialGetDAI.onclick = async () => {
+  var web3 = new Web3(window.ethereum)
+  const pbsocial = new web3.eth.Contract(setTokenABI, PBSocialSetTokenAddress);
+  pbsocial.setProvider(window.ethereum)
+  var pbsocialGetDAIResult = await pbsocial.methods.getDefaultPositionRealUnit(daiAddress).call()
+  console.log(pbsocialGetDAIResult);
+
+  var pbsocialDAIPosition = document.getElementById('pbsocial-dai-position');
+  pbsocialDAIPosition.innerHTML = web3.utils.fromWei(pbsocialGetDAIResult, "ether") + ' DAI';
+}
+
+// PBSocial: Accrue Fee and Distribute
+const pbsocialAccrueFee = document.getElementById('accrue-fee-button');
+pbsocialAccrueFee.onclick = async () => {
+  var web3 = new Web3(window.ethereum)
+  const pbsocialManager = new web3.eth.Contract(socialTradingManagerABI, socialTradingManagerAddress);
+  pbsocialManager.setProvider(window.ethereum)
+  var accrueFeeResult = await pbsocialManager.methods.accrueFeeAndDistribute().send({from: ethereum.selectedAddress})
+  console.log(accrueFeeResult);
+
+  var accrueFeeTotal = document.getElementById('accrue-fee-total');
+  var accrueFeeMethodologist = document.getElementById('accrue-fee-methodologist');
+  var accrueFeeOperator = document.getElementById('accrue-fee-operator');
+  
+  accrueFeeTotal.innerHTML = 'Total Fees Accrued: ' + accrueFeeResult.events.FeesAccrued.returnValues._totalFees + " Wei";
+  accrueFeeMethodologist.innerHTML = 'Methodologist Take: ' + accrueFeeResult.events.FeesAccrued.returnValues._methodologistTake + " Wei";
+  accrueFeeOperator.innerHTML = 'Operator Take: ' + accrueFeeResult.events.FeesAccrued.returnValues._operatorTake + " Wei";
+}
+
+
 // Investor: Get Required Components for Issue
 const requireSubmit = document.getElementById('investor-require-button');
 requireSubmit.onclick = async () => {
@@ -2519,7 +2591,8 @@ stmTradeSubmit.onclick = async () => {
         stmTradeSendToken, 
         stmTradeSendQuantity_shifted, 
         stmTradeReceiveToken, 
-        stmTradeReceiveQuantity_shifted).send({from: ethereum.selectedAddress})
+        stmTradeReceiveQuantity_shifted,
+        web3.eth.abi.encodeParameter('address[]', [wethAddress, daiAddress])).send({from: ethereum.selectedAddress})
 
     console.log(tradeResult)
 };
@@ -2535,7 +2608,12 @@ stmOperatorSubmit.onclick = async () => {
 
     const socialTradingManager = new web3.eth.Contract(socialTradingManagerABI, socialTradingManagerAddress);
     socialTradingManager.setProvider(window.ethereum)
-    await socialTradingManager.methods.updateOperator(stmOperatorAddress).send({from: ethereum.selectedAddress})
+    var changeOperatorResult = await socialTradingManager.methods.updateOperator(stmOperatorAddress).send({from: ethereum.selectedAddress})
+
+    console.log(changeOperatorResult)
+
+    const coResult = document.getElementById('change-operator');
+    coResult.innerHTML = 'New Operator Address: ' + changeOperatorResult.events.OperatorChanged.returnValues._newOperator;
 }
 
 // Methodologist: Change Streaming Fee
@@ -2551,7 +2629,15 @@ stmStreamingSubmit.onclick = async () => {
 
     const socialTradingManager = new web3.eth.Contract(socialTradingManagerABI, socialTradingManagerAddress);
     socialTradingManager.setProvider(window.ethereum)
-    await socialTradingManager.methods.updateStreamingFee(stmStreamingFee_shifted).send({from: ethereum.selectedAddress})
+    var updateFeeResult = await socialTradingManager.methods.updateStreamingFee(stmStreamingFee_shifted).send({from: ethereum.selectedAddress})
+
+    console.log(updateFeeResult)
+    const updateFResult = document.getElementById('update-fee');
+    if (updateFeeResult.status) {
+      updateFResult.innerHTML = 'Fee Update Successful!';
+    } else {
+      updateFResult.innerHTML = 'Warning: Fee Update Unsuccessful!';
+    }
 }
 
 // Methodologist: Change Methodologist
@@ -2565,7 +2651,10 @@ stmMethodologistSubmit.onclick = async () => {
 
     const socialTradingManager = new web3.eth.Contract(socialTradingManagerABI, socialTradingManagerAddress);
     socialTradingManager.setProvider(window.ethereum)
-    await socialTradingManager.methods.updateMethodologist(stmMethodologistAddress).send({from: ethereum.selectedAddress})
+    var changeMethodologistResult = await socialTradingManager.methods.updateMethodologist(stmMethodologistAddress).send({from: ethereum.selectedAddress})
+
+    const moResult = document.getElementById('change-methodologist');
+    moResult.innerHTML = 'New Methodologist Address: ' + changeMethodologistResult.events.MethodologistChanged.returnValues._newMethodologist;
 }
 
 // Social Trader: Create Set
@@ -2610,7 +2699,15 @@ initBISubmit.onclick = async () => {
 
   const basicIssuanceModule = new web3.eth.Contract(basicIssuanceModuleABI, basicIssuanceModuleAddress);
   basicIssuanceModule.setProvider(window.ethereum)
-  await basicIssuanceModule.methods.initialize(setTokenAddress, '0x0000000000000000000000000000000000000000').send({from: ethereum.selectedAddress})
+  var BIResult = await basicIssuanceModule.methods.initialize(setTokenAddress, '0x0000000000000000000000000000000000000000').send({from: ethereum.selectedAddress})
+
+  console.log(BIResult)
+  const initBIResult = document.getElementById('init-bi');
+  if (BIResult.status) {
+    initBIResult.innerHTML = 'BasicIssuanceModule Initialization Successful!';
+  } else {
+    initBIResult.innerHTML = 'Warning: BasicIssuanceModule Initialization Unsuccessful!';
+  }
 }
 
 // Social Trader: Initialize Streaming Fee Module
@@ -2632,7 +2729,15 @@ initSFSubmit.onclick = async () => {
 
   const streamingFeeModule = new web3.eth.Contract(streamingFeeModuleABI, streamingFeeModuleAddress);
   streamingFeeModule.setProvider(window.ethereum)
-  await streamingFeeModule.methods.initialize(setTokenAddress, feeState).send({from: ethereum.selectedAddress})
+  var SFResult = await streamingFeeModule.methods.initialize(setTokenAddress, feeState).send({from: ethereum.selectedAddress})
+
+  console.log(SFResult)
+  const initSFResult = document.getElementById('init-sf');
+  if (SFResult.status) {
+    initSFResult.innerHTML = 'StreamingFeeModule Initialization Successful!';
+  } else {
+    initSFResult.innerHTML = 'Warning: StreamingFeeModule Initialization Unsuccessful!';
+  }
 }
 
 // Social Trader: Initialize Trade Module
@@ -2646,7 +2751,15 @@ initTSubmit.onclick = async () => {
 
   const tradeModule = new web3.eth.Contract(tradeModuleABI, tradeModuleAddress);
   tradeModule.setProvider(window.ethereum)
-  await tradeModule.methods.initialize(setTokenAddress).send({from: ethereum.selectedAddress})
+  var TResult = await tradeModule.methods.initialize(setTokenAddress).send({from: ethereum.selectedAddress})
+
+  console.log(TResult)
+  const initTResult = document.getElementById('init-t');
+  if (TResult.status) {
+    initTResult.innerHTML = 'TradeModule Initialization Successful!';
+  } else {
+    initTResult.innerHTML = 'Warning: TradeModule Initialization Unsuccessful!';
+  }
 }
 
 // Social Trader: Change Manager
@@ -2661,5 +2774,10 @@ changeMSubmit.onclick = async () => {
 
   const setToken = new web3.eth.Contract(setTokenABI, setTokenAddress);
   setToken.setProvider(window.ethereum)
-  await setToken.methods.setManager(newManagerAddress).send({from: ethereum.selectedAddress})
+  var CMResult = await setToken.methods.setManager(newManagerAddress).send({from: ethereum.selectedAddress})
+
+  console.log(CMResult)
+
+  const changeManagerResult = document.getElementById('change-manager');
+  changeManagerResult.innerHTML = 'New Manager Address: ' + CMResult.events.ManagerEdited.returnValues._newManager;
 }

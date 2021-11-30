@@ -2392,7 +2392,36 @@ pbsocialGetComponents.onclick = async () => {
   pbsocialComponents.innerHTML = 'PBSocial Components: ' + pbsocialGetComponentsResult;
 }
 
-// PBSocial: Accrue Fee and Distribute
+// Social Trading Manager: Get Operator
+const stmGetOperator = document.getElementById('get-stm-operator');
+stmGetOperator.onclick = async () => {
+  var web3 = new Web3(window.ethereum)
+
+  const stmManager = new web3.eth.Contract(socialTradingManagerABI, socialTradingManagerAddress);
+  stmManager.setProvider(window.ethereum)
+  var stmGetOperatorResult = await stmManager.methods.operator().call()
+  console.log(stmGetOperatorResult);
+
+  var stmOperatorDiv = document.getElementById('stm-operator');
+  stmOperatorDiv.innerHTML = 'Social Trading Manager Operator: ' + stmGetOperatorResult;
+}
+
+// Social Trading Manager: Get Methodologist
+const stmGetMethodologist = document.getElementById('get-stm-methodologist');
+stmGetMethodologist.onclick = async () => {
+  var web3 = new Web3(window.ethereum)
+
+  const stmManager = new web3.eth.Contract(socialTradingManagerABI, socialTradingManagerAddress);
+  stmManager.setProvider(window.ethereum)
+  var stmGetMethodologistResult = await stmManager.methods.methodologist().call()
+  console.log(stmGetMethodologistResult);
+
+  var stmMethodologistDiv = document.getElementById('stm-methodologist');
+  stmMethodologistDiv.innerHTML = 'Social Trading Manager Methodologist: ' + stmGetMethodologistResult;
+}
+
+
+// Social Trading Manager: Accrue Fee and Distribute
 const pbsocialAccrueFee = document.getElementById('accrue-fee-button');
 pbsocialAccrueFee.onclick = async () => {
   var web3 = new Web3(window.ethereum)

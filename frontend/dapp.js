@@ -2595,7 +2595,7 @@ stmTradeSubmit.onclick = async () => {
         stmTradeSendQuantity_shifted, 
         stmTradeReceiveToken, 
         stmTradeReceiveQuantity_shifted,
-        '0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa000bb8d0a1e359811322d97991e03f863a0c30c2cf029c').send({from: ethereum.selectedAddress})
+        '0x').send({from: ethereum.selectedAddress})
 
     console.log(tradeResult)
     const tradeResultHTML = document.getElementById('trade-result');
